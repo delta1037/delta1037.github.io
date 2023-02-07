@@ -56,6 +56,13 @@
 
   
   <url>
+    <loc>https://www.delta1037.cn/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
+    <lastmod>2023-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/tags/SSL/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -64,13 +71,6 @@
   
   <url>
     <loc>https://www.delta1037.cn/tags/%E9%83%A8%E7%BD%B2/</loc>
-    <lastmod>2023-02-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -100,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
+    <loc>https://www.delta1037.cn/categories/%E5%B7%A5%E7%A8%8B/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E5%B7%A5%E7%A8%8B/</loc>
+    <loc>https://www.delta1037.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2023-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
