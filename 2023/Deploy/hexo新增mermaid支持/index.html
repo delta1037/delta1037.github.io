@@ -56,19 +56,19 @@
     <div id="header-inner" class="inner">
       <nav id="main-nav">
         
-          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> Home</a>
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
         
-          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> Archive</a>
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
         
-          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> About</a>
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
         
-          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> RSS</a>
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
         
       </nav>
     </div>
     <div id="search-form">
       <div id="result-mask" class="hide"></div>
-      <label><input id="search-key" type="text" autocomplete="off" placeholder="search"></label>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
       <div id="result-wrap" class="hide">
         <div id="search-result"></div>
       </div>
@@ -134,7 +134,7 @@
     
   
   <i class="fa fa-commt"></i>
-  Guestbook
+  留言
 </a>
 
 
@@ -154,33 +154,26 @@
 <p>添加支持。我使用的BuleLake主题<code>js</code>后缀是<code>.ejs</code>（其它类型（<code>.pug</code>、<code>.swig</code>）参考<a target="_blank" rel="noopener" href="https://github.com/webappdevelp/hexo-filter-mermaid-diagrams">Github说明</a>），在<code>themes\bluelake\layout\_partial\</code>**<code>after-footer.ejs</code>**中添加如下内容</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=<span class="string">&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;</span>&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="keyword">if</span> (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: <span class="string">&#x27;forest&#x27;</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p>语法：</p>
-<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">graph TD</span><br><span class="line">	A(数据需求1) --&gt; B(管理)</span><br><span class="line">	C(数据需求2) --&gt; B(管理)</span><br><span class="line">	B(管理) --&gt; D[Mysql]</span><br><span class="line">	B(管理) --&gt; E[SQLITE]</span><br></pre></td></tr></table></figure>
-<pre><code>
-
-
-[主题类型](https://mermaid.js.org/config/theming.html)：（在上面修改文件时配置）
-
-- **default** - This is the default theme for all diagrams.
-- **neutral** - This theme is great for black and white documents that will be printed.
-- **dark** - This theme goes well with dark-colored elements or dark-mode.
-- **forest** - This theme contains shades of green.
-- **base** - This is the only theme that can be modified. Use this theme as the base for customizations.
-
-# 三、注意
-
-- mermaid新增配置是修改的主题目录下的文件
-- 需要将根目录配置`_config.yml`中`highlight`下的`auto_detect`设置为`true`
-
-</code></pre>
+<h1 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h1><p><a target="_blank" rel="noopener" href="https://mermaid.js.org/config/theming.html">主题类型</a>：（在上面修改文件时配置）：</p>
+<ul>
+<li><strong>default</strong> - This is the default theme for all diagrams.</li>
+<li><strong>neutral</strong> - This theme is great for black and white documents that will be printed.</li>
+<li><strong>dark</strong> - This theme goes well with dark-colored elements or dark-mode.</li>
+<li><strong>forest</strong> - This theme contains shades of green.</li>
+<li><strong>base</strong> - This is the only theme that can be modified. Use this theme as the base for customizations.</li>
+</ul>
+<h1 id="三、注意"><a href="#三、注意" class="headerlink" title="三、注意"></a>三、注意</h1><ul>
+<li>mermaid新增配置是修改的主题目录下的文件</li>
+<li>需要将根目录配置<code>_config.yml</code>中<code>highlight</code>下的<code>auto_detect</code>设置为<code>true</code></li>
+</ul>
 
         
             <div id="toc-article">
                 
   <div class="widget-wrap" id="toc-wrap">
-    <h3 class="widget-title"><i class="fa fa-toc"></i> Contents</h3>
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">一、安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8"><span class="toc-text">二、使用</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-text">一、安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8"><span class="toc-text">二、使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F"><span class="toc-text">三、注意</span></a></li></ol>
     </div>
   </div>
 
@@ -189,8 +182,8 @@
         
         
           <blockquote id="copyright">
-              <p>Original link: <a href="https://www.delta1037.cn/2023/Deploy/hexo新增mermaid支持/">https://www.delta1037.cn/2023/Deploy/hexo新增mermaid支持/</a></p>
-              <p>Copyright Notice: 转载请注明出处.</p>
+              <p>原文链接: <a href="https://www.delta1037.cn/2023/Deploy/hexo新增mermaid支持/">https://www.delta1037.cn/2023/Deploy/hexo新增mermaid支持/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
           </blockquote>
         
       
@@ -223,7 +216,7 @@
 
           
     <div class="social-share">
-      <span>Share:</span>
+      <span>分享到:</span>
     </div>
 
 
@@ -269,7 +262,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fa fa-posts"></i> Recent</h3>
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
     <div class="widget">
       <ul>
         
@@ -301,7 +294,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fa fa-tag"></i> Tag Cloud</h3>
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
       <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">程序设计</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 20px;">部署</a>
     </div>
@@ -310,7 +303,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fa fa-classify"></i> Categories</h3>
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Bugsfix/">Bugsfix</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a><span class="category-list-count">1</span></li></ul>
     </div>
@@ -320,7 +313,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fa fa-archive"></i> Archive</h3>
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">1</span></li></ul>
     </div>
@@ -330,7 +323,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fa fa-link"></i> Blogroll</h3>
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
     <div class="widget">
       <ul>
       
@@ -361,9 +354,9 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       <p>
-        <a href="/sitemap.xml">Site Map</a>
-        <span> | </span><a href="/atom.xml">Subscribe to this site</a>
-        <span> | </span><a href="/about/">Contact the blogger</a>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
       </p>
       
         <p>
