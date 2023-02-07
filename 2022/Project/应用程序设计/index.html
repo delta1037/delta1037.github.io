@@ -177,14 +177,24 @@
 </ul>
 <h3 id="1-2-数据记录"><a href="#1-2-数据记录" class="headerlink" title="1.2 数据记录"></a>1.2 数据记录</h3><p>在对接到应用程序的上层部分，一般需要根据程序的具体需求定制（比如存储什么数据，许需要哪些数据操作接口（增删查改之类的））。在数据记录的底层部分，可以支持多种数据库类型，方便数据库的切换，或者使用不同的数据库完成不同的需求（瞎猜的，实际没有遇到过）。</p>
 <p>该模块可以设计为细腰型结构，包括上层对接具体需求，中层管理，底层聚合多种数据库类型。这种结构一方面是便于新增新的功能或者支持新的数据库；另一方面是方便移植到另一个应用程序上（只需要替换上层部分即可）。细腰型结构示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">	A(数据需求1) --&gt; B(管理)</span><br><span class="line">	C(数据需求2) --&gt; B(管理)</span><br><span class="line">	B(管理) --&gt; D[Mysql]</span><br><span class="line">	B(管理) --&gt; E[SQLITE]</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph TD
+    A(数据需求1) --> B(管理)
+    C(数据需求2) --> B(管理)
+    B(管理) --> D[Mysql]
+    B(管理) --> E[SQLITE]</pre>
 
 <h3 id="1-3-配置记录"><a href="#1-3-配置记录" class="headerlink" title="1.3 配置记录"></a>1.3 配置记录</h3><p>配置模块和日志模块一样，都是应用程序的基础。配置用来初始化一些应用程序的参数，如果把这些参数写入到程序内部，那么在需要调整参数的时候就会很麻烦（重新编译程序），所以需要与应用程序隔离的文件来存储一些在程序启动时可能会发生改变的内容。</p>
 <p>配置模块需要对应用程序提供的基本功能是根据key来获取对应的值，即获取某个参数的值；配置模块也可以添加一些高级功能，例如向配置文件写入一个参数的值；当程序运行时，如果监测到配置发生改变时，对程序中对应的参数重新初始化。</p>
 <p>配置的存储需要与应用程序的语言相适应。C&#x2F;C++一般使用一行即为一个参数配置（使用“：”或者“&#x3D;”隔离参数的key和value）；Python可以很方便的使用json库，所以可以使用JSON文件作为配置文件。</p>
 <h3 id="1-4-会话控制"><a href="#1-4-会话控制" class="headerlink" title="1.4 会话控制"></a>1.4 会话控制</h3><p>会话控制模块一般用于本地或者网络上的两个进程间的通信。通信则一般分为同步和异步方式，同步通信方式就是进程A向进程B索要数据，A等着B完成，然后拿到数据；异步方式是进程A向进程B索要数据，确定B收到索要数据之后A立即返回，B开始准备数据，当B数据准备好之后将数据发送给A，A拿到数据。</p>
 <p>会话控制模块一般分为两层，上层是会话协议层，下层是网络传输层，会话协议层主要定义两个程序之间的通信协议（A：你今天吃什么？B：我吃番茄炒鸡蛋），网络传输部分主要是定义信息传输的方式（怎么把”你今天吃什么？“这句话发出去），一般有Socket（TCP&#x2F;UDP）、HTTP等。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">	subgraph 从</span><br><span class="line">    E(从:会话协议) &lt;--&gt; C(从:网络传输)</span><br><span class="line">    end</span><br><span class="line">	subgraph 主</span><br><span class="line">    A(主:会话协议) &lt;--&gt; B(主:网络传输)</span><br><span class="line">    end</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph TD
+    subgraph 从
+    E(从:会话协议) <--> C(从:网络传输)
+    end
+    subgraph 主
+    A(主:会话协议) <--> B(主:网络传输)
+    end</pre>
 
 <h3 id="1-5-任务控制"><a href="#1-5-任务控制" class="headerlink" title="1.5 任务控制"></a>1.5 任务控制</h3><p>一般的多任务程序中都需要任务管理，多任务即为多线程任务，多线程任务包括临时任务、持久化任务等等。任务控制模块可以提供任务控制功能，基本的包括启动任务和终止任务，更复杂点的包括任务的活性监测（监测线程是否卡住）。</p>
 <p>多任务模块需要考虑的点有：</p>
@@ -577,6 +587,15 @@
     });
   </script>
   <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
+
+
+
+  <script src='https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'default'});
+    }
+  </script>
 
 </body>
 </html>
