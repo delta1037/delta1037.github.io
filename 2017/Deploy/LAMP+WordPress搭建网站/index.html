@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LAMP+WordPress搭建网站 | Delta1037</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Delta1037" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Delta1037</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术是纯净的</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Deploy/LAMP+WordPress搭建网站" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LAMP+WordPress搭建网站
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-08-07T16:00:00.000Z" itemprop="datePublished">2017年08月08日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2017/Deploy/LAMP+WordPress%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>LAMP+WordPress搭建博客网站</p>
+<span id="more"></span>
+
+<h1 id="搭建LAMP（Linux-Apache-MySQL-PHP）环境"><a href="#搭建LAMP（Linux-Apache-MySQL-PHP）环境" class="headerlink" title="搭建LAMP（Linux, Apache, MySQL, PHP）环境"></a><strong>搭建LAMP（Linux, Apache, MySQL, PHP）环境</strong></h1><h2 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a><strong>安装Apache</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apache2</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后在浏览器页面输入<a target="_blank" rel="noopener" href="http://your/">http://your</a>_server_IP_address 可以看到Apache的配置页面</p>
+<h2 id="安装数据库MySQL"><a href="#安装数据库MySQL" class="headerlink" title="安装数据库MySQL"></a><strong>安装数据库MySQL</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server php7.0-mysql</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们要让MySQL创建它的存储信息的数据库目录结构，输入以下命令</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_install_db</span><br></pre></td></tr></table></figure>
+
+<p>然后运行一个简单的安全脚本，它会移除一些危险的默认的配置</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql_secure_installation</span><br></pre></td></tr></table></figure>
+
+<p>它将会要求输入root密码，然后问是否想要修改密码，如果对现在的密码满意，就输入n或者no；对于剩下的问题，只需要enter键接受默认的配置就可以，这将会移除一些样例用户和数据库，使远程root登录不可用，并且加载这些新的规则来做出我们所做的更新</p>
+<h2 id="安装PHP"><a href="#安装PHP" class="headerlink" title="安装PHP"></a><strong>安装PHP</strong></h2><p>安装</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install php7.0 libapache2-mod-php7.0 php7.0-mcrypt</span><br></pre></td></tr></table></figure>
+
+<p>更改dir.conf文件：</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apache2/mods-enabled/dir.conf</span><br></pre></td></tr></table></figure>
+
+<p>更改前：</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_dir.c&gt;</span><br><span class="line">    DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更改后：&lt;其中只是移动了ingdex.php的位置&gt;</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_dir.c&gt;</span><br><span class="line">    DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重启Apache：</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service apache2 restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试PHP模块："><a href="#测试PHP模块：" class="headerlink" title="测试PHP模块："></a><strong>测试PHP模块：</strong></h3><p>创建新的文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /var/www/html/info.php</span><br></pre></td></tr></table></figure>
+
+<p>输入文件内容</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>打开<a target="_blank" rel="noopener" href="http://your/">http://your</a>_server_IP_address&#x2F;info.php 查看测试结果 注意删除这个文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /var/www/html/info.php</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装Wordpress"><a href="#安装Wordpress" class="headerlink" title="安装Wordpress"></a><strong>安装Wordpress</strong></h1><h2 id="创建数据库用户"><a href="#创建数据库用户" class="headerlink" title="创建数据库用户"></a><strong>创建数据库用户</strong></h2><p>登录数据库</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>创建新的用户，用户名假设为Wordpress</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE wordpress;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个数据库用户</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER wordpressuser@localhost IDENTIFIED BY &#x27;password&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>给这个用户新数据库的使用权</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost;</span><br></pre></td></tr></table></figure>
+
+<p>使操作生效并退出</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载WordPress并配置"><a href="#下载WordPress并配置" class="headerlink" title="下载WordPress并配置"></a><strong>下载WordPress并配置</strong></h2><p>切换到～目录并获得WordPress的最新版本</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">wget http://wordpress.org/latest.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压该文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xzvf latest.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>下载一些安装包</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install php7.0-gd libssh2-php</span><br></pre></td></tr></table></figure>
+
+<p>复制一个配置文件的副本</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp wp-config-sample.php wp-config.php</span><br></pre></td></tr></table></figure>
+
+<p>获得安全秘钥</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://api.wordpress.org/secret-key/1.1/salt/</span><br></pre></td></tr></table></figure>
+
+<p>会得到类似的输出&lt;警告：不要拷贝下面的！！&gt;</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">define(&#x27;AUTH_KEY&#x27;,         &#x27;1jl/vqfs&lt;XhdXoAPz9 DO NOT COPY THESE VALUES c_j&#123;iwqD^&lt;+c9.k&lt;J@4H&#x27;);</span><br><span class="line">define(&#x27;SECURE_AUTH_KEY&#x27;,  &#x27;E2N-h2]Dcvp+aS/p7X DO NOT COPY THESE VALUES &#123;Ka(f;rv?Pxf&#125;)CgLi-3&#x27;);</span><br><span class="line">define(&#x27;LOGGED_IN_KEY&#x27;,    &#x27;W(50,&#123;W^,OPB%PB&lt;JF DO NOT COPY THESE VALUES 2;y&amp;,2m%3]R6DUth[;88&#x27;);</span><br><span class="line">define(&#x27;NONCE_KEY&#x27;,        &#x27;ll,4UC)7ua+8&lt;!4VM+ DO NOT COPY THESE VALUES #`DXF+[$atzM7 o^-C7g&#x27;);</span><br><span class="line">define(&#x27;AUTH_SALT&#x27;,        &#x27;koMrurzOA+|L_lG&#125;kf DO NOT COPY THESE VALUES  07VC*Lj*lD&amp;?3w!BT#-&#x27;);</span><br><span class="line">define(&#x27;SECURE_AUTH_SALT&#x27;, &#x27;p32*p,]z%LZ+7pAu:VY DO NOT COPY THESE VALUES C-?y+K0DK_+F|0h&#123;!_xY&#x27;);</span><br><span class="line">4define(&#x27;LOGGED_IN_SALT&#x27;,   &#x27;i^/G2W7!-H2OQ+t$3 DO NOT COPY THESE VALUES t6**bRVFSD[Hi])-qS`|&#x27;);</span><br><span class="line">define(&#x27;NONCE_SALT&#x27;,       &#x27;Q6]U:K?j4L%Z]&#125;h^q7 DO NOT COPY THESE VALUES 1%^qUswWgn+6&amp;xqHN&amp;%&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>打开配置文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano wp-config.php</span><br></pre></td></tr></table></figure>
+
+<p>将秘钥<strong>替换</strong>配置中类似的位置 找到关于 DB_NAME, DB_USER, 和 DB_PASSWORD 的设置，并填写相应的刚刚配置数据库的信息</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// ** MySQL settings - You can get this info from your web host ** //</span><br><span class="line">/** The name of the database for WordPress */</span><br><span class="line">define(&#x27;DB_NAME&#x27;, &#x27;wordpress&#x27;);</span><br><span class="line"></span><br><span class="line">/** MySQL database username */</span><br><span class="line">define(&#x27;DB_USER&#x27;, &#x27;wordpressuser&#x27;);</span><br><span class="line"></span><br><span class="line">/** MySQL database password */</span><br><span class="line">define(&#x27;DB_PASSWORD&#x27;, &#x27;password&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>拷贝文件到根目录</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rsync -avP ~/wordpress/ /var/www/html/</span><br></pre></td></tr></table></figure>
+
+<p>更改文件的权限</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R demo:www-data *</span><br></pre></td></tr></table></figure>
+
+<p>创建上传目录并赋相应的权限</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/www/html/wp-content/uploads</span><br><span class="line">sudo chown -R :www-data /var/www/html/wp-content/uploads</span><br></pre></td></tr></table></figure>
+
+<p>完成安装并查看网站并完成最后的配置</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://server_domain_name_or_IP</span><br></pre></td></tr></table></figure>
+
+<h2 id="允许Apache使用固定连接功能"><a href="#允许Apache使用固定连接功能" class="headerlink" title="允许Apache使用固定连接功能"></a><strong>允许Apache使用固定连接功能</strong></h2><p>编辑000-default.conf</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apache2/sites-available/000-default.conf</span><br></pre></td></tr></table></figure>
+
+<p>做如下更改</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    ServerAdmin webmaster@localhost</span><br><span class="line">    DocumentRoot /var/www/html</span><br><span class="line">    ServerName server_domain_name_or_IP</span><br><span class="line">    &lt;Directory /var/www/html/&gt;</span><br><span class="line">        AllowOverride All</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">    . . .</span><br></pre></td></tr></table></figure>
+
+<p>重新启动部件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//sudo a2enmod rewrite</span><br><span class="line">sudo service apache2 restart</span><br></pre></td></tr></table></figure>
+
+<p>创建.htaccess文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /var/www/html/.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>赋相应权限</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown :www-data /var/www/html/.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>如果想要Wordpress自动更新这个文件</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 664 /var/www/html/.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>If you want to update this file manually for the sake of a small security gain, you can allow the web server only read privileges by typing:</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 644 /var/www/html/.htaccess</span><br></pre></td></tr></table></figure>
+
+<h1 id="网站在不同vps之间的迁移"><a href="#网站在不同vps之间的迁移" class="headerlink" title="网站在不同vps之间的迁移"></a><strong>网站在不同vps之间的迁移</strong></h1><h2 id="VPS1上数据打包（备份）"><a href="#VPS1上数据打包（备份）" class="headerlink" title="VPS1上数据打包（备份）"></a><strong>VPS1上数据打包（备份）</strong></h2><h3 id="文件数据打包"><a href="#文件数据打包" class="headerlink" title="文件数据打包"></a><strong>文件数据打包</strong></h3><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/wwwroot/</span><br><span class="line">tar zcvf xxx.tar.gz 网站目录（如/home/wwwroot/vmvps.com）</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL数据导出"><a href="#MySQL数据导出" class="headerlink" title="MySQL数据导出"></a><strong>MySQL数据导出</strong></h3><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u用户名 -p密码 数据库名 &gt; xxx.sql</span><br></pre></td></tr></table></figure>
+
+<h2 id="VPS2上数据转移（恢复）"><a href="#VPS2上数据转移（恢复）" class="headerlink" title="VPS2上数据转移（恢复）"></a><strong>VPS2上数据转移（恢复）</strong></h2><h3 id="文件数据恢复（wget获取远程文件）"><a href="#文件数据恢复（wget获取远程文件）" class="headerlink" title="文件数据恢复（wget获取远程文件）"></a><strong>文件数据恢复（wget获取远程文件）</strong></h3><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /home/wwwroot/</span><br><span class="line">wget http://www.xxx.com/xxx.tar.gz（从VPS1上获取文件）</span><br><span class="line">tar zxvf xxx.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL数据导入"><a href="#MySQL数据导入" class="headerlink" title="MySQL数据导入"></a><strong>MySQL数据导入</strong></h3><ul>
+<li>请先在phpmyadmin新建相应数据库和用户（与原数据库、用户同名）&lt;若不同名则有可能出现数据库连接错误&gt;</li>
+</ul>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.xxx.com/xxx.sql</span><br><span class="line">mysql -u你新建的用户名 -p用户名密码 你刚才新建的数据库名 &lt; xxx.sql</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><strong>参考链接</strong></h1><p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04">How To Install Wordpress on Ubuntu 14.04</a> <a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04">How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 14.04</a> <a target="_blank" rel="noopener" href="https://www.vmvps.com/transfer-data-between-vpses-website-backup-and-restore-tutorial.html#backup">VPS之间网站数据的备份与恢复（网站迁移教程）【微魔部落原创】</a></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BALAMP%EF%BC%88Linux-Apache-MySQL-PHP%EF%BC%89%E7%8E%AF%E5%A2%83"><span class="toc-text">搭建LAMP（Linux, Apache, MySQL, PHP）环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Apache"><span class="toc-text">安装Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93MySQL"><span class="toc-text">安装数据库MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85PHP"><span class="toc-text">安装PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95PHP%E6%A8%A1%E5%9D%97%EF%BC%9A"><span class="toc-text">测试PHP模块：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Wordpress"><span class="toc-text">安装Wordpress</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7"><span class="toc-text">创建数据库用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDWordPress%E5%B9%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">下载WordPress并配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%81%E8%AE%B8Apache%E4%BD%BF%E7%94%A8%E5%9B%BA%E5%AE%9A%E8%BF%9E%E6%8E%A5%E5%8A%9F%E8%83%BD"><span class="toc-text">允许Apache使用固定连接功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E5%9C%A8%E4%B8%8D%E5%90%8Cvps%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BF%81%E7%A7%BB"><span class="toc-text">网站在不同vps之间的迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VPS1%E4%B8%8A%E6%95%B0%E6%8D%AE%E6%89%93%E5%8C%85%EF%BC%88%E5%A4%87%E4%BB%BD%EF%BC%89"><span class="toc-text">VPS1上数据打包（备份）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%89%93%E5%8C%85"><span class="toc-text">文件数据打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA"><span class="toc-text">MySQL数据导出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VPS2%E4%B8%8A%E6%95%B0%E6%8D%AE%E8%BD%AC%E7%A7%BB%EF%BC%88%E6%81%A2%E5%A4%8D%EF%BC%89"><span class="toc-text">VPS2上数据转移（恢复）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D%EF%BC%88wget%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-text">文件数据恢复（wget获取远程文件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5"><span class="toc-text">MySQL数据导入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://www.delta1037.cn/2017/Deploy/LAMP+WordPress搭建网站/">https://www.delta1037.cn/2017/Deploy/LAMP+WordPress搭建网站/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+    <div class="article-reward">
+        <a id="reward-btn" href="javascript:;">打赏</a>
+        <div id="reward-content">
+            <h6 class="reward-tit">“感谢你的支持，我会继续努力！”</h6>
+            <div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/wechat.jpg">
+                    <img class="er-code" src="/css/images/wechat-pay.jpg">
+                </div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/alipay.jpg">
+                    <img class="er-code" src="/css/images/alipay-pay.jpg">
+                </div>
+            </div>
+            <p class="reward-desc">扫码打赏，感谢支持</p>
+        </div>
+    </div>
+
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+  
+    <a href="/2017/Deploy/Hexo+Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Hexo+Github搭建博客
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/">博客更新说明</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Deploy/hexo%E6%96%B0%E5%A2%9Emermaid%E6%94%AF%E6%8C%81/">hexo 新增mermaid支持</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Bugsfix/LatexfontspecError/">Latex fontspec Error</a>
+          </li>
+        
+          <li>
+            <a href="/2022/Project/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">应用程序设计</a>
+          </li>
+        
+          <li>
+            <a href="/2021/Times/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/">考研感想</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Dian/" style="font-size: 10px;">Dian</a> <a href="/tags/GitLab/" style="font-size: 10px;">GitLab</a> <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Terraria/" style="font-size: 13.33px;">Terraria</a> <a href="/tags/Typora/" style="font-size: 10px;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 13.33px;">博客搭建</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 10px;">状态机</a> <a href="/tags/%E7%A7%9F%E6%88%BF/" style="font-size: 10px;">租房</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">程序设计</a> <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" style="font-size: 10px;">算法导论</a> <a href="/tags/%E7%B3%BB%E7%BB%9F/" style="font-size: 10px;">系统</a> <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 10px;">经济学</a> <a href="/tags/%E7%BC%96%E8%AF%91/" style="font-size: 16.67px;">编译</a> <a href="/tags/%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">美化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 16.67px;">部署</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bugsfix/">Bugsfix</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dian%E5%9B%A2%E9%98%9F/">Dian团队</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%B6%E5%85%89/">时光</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://dian.org.cn/">华中科技大学Dian团队</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://bbs.dian.org.cn/">Dian团队论坛</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://delta1037.notion.site">Notion知识共享板块</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 delta1037.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+    
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+    
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+    <script>
+      var gitalk = new Gitalk({
+        clientID: '79255b590bda0804dcc4',
+        clientSecret: '6405c9b64ff65c24179669cb3839f0bd7053c151',
+        repo: 'delta1037.github.io',
+        owner: 'delta1037',
+        admin: ['delta1037'],
+        id: md5(window.location.pathname),
+        distractionFreeMode: false,
+        language: 'zh-CN',
+        pagerDirection: 'last'
+      });
+      gitalk.render('comments');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
+
+
+
+  <script src='https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'default'});
+    }
+  </script>
+
+</body>
+</html>
