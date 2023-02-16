@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux启动过程分析 | Delta1037</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Delta1037" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Delta1037</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术是纯净的</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/Linux启动过程分析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux启动过程分析
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-10-13T16:00:00.000Z" itemprop="datePublished">2019年10月14日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2019/Linux/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux启动过程分析</p>
+<span id="more"></span>
+
+<h2 id="第一阶段-BIOS"><a href="#第一阶段-BIOS" class="headerlink" title="第一阶段-BIOS"></a><strong>第一阶段-BIOS</strong></h2><p>计算机通电后，首先会区读取ROM芯片中的开机程序（基本输入输出系统&#x2F;BIOS）</p>
+<h3 id="1-1-硬件自检"><a href="#1-1-硬件自检" class="headerlink" title="1.1 硬件自检"></a><strong>1.1 硬件自检</strong></h3><p>BIOS程序首先检查计算机硬件是否满足运行的基本条件–<strong>硬件自检</strong>（POST）</p>
+<p>CMOS：存储硬件的各项参数。</p>
+<h3 id="1-2-启动顺序"><a href="#1-2-启动顺序" class="headerlink" title="1.2 启动顺序"></a><strong>1.2 启动顺序</strong></h3><p>硬件自检完成后，BIOS把控制权交给下一阶段的启动程序。</p>
+<p>这时，BIOS需要知道下一阶段的启动程序在哪个设备，也就是BIOS需要有一个外部存储设备排序，排在前边的设备就是优先转交控制权的设备。这个排序叫<strong>启动顺序</strong>。</p>
+<h2 id="第二阶段-主引导记录"><a href="#第二阶段-主引导记录" class="headerlink" title="第二阶段-主引导记录"></a><strong>第二阶段-主引导记录</strong></h2><p>BIOS把控制权交给排在第一位的存储设备。</p>
+<p>计算机读取此设备的第一个扇区（最前边的512个字节，叫做<strong>主引导记录</strong>&lt;Master boot record，缩写为**MBR**&gt;），如果这个扇区最后两个字节是0x55和0xAA，表明设备可以启动；如果不是，表明设备不能启动，控制权交给启动顺序中的下一个 设备。</p>
+<h3 id="2-1-主引导记录结构"><a href="#2-1-主引导记录结构" class="headerlink" title="2.1 主引导记录结构"></a><strong>2.1 主引导记录结构</strong></h3><table>
+<thead>
+<tr>
+<th><strong>范围&#x2F;字节</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1-446</td>
+<td>调用操作系统的机器码</td>
+</tr>
+<tr>
+<td>447-510</td>
+<td>分区表：将磁盘分为若干个区</td>
+</tr>
+<tr>
+<td>511-512</td>
+<td>主引导记录签名</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-分区表"><a href="#2-2-分区表" class="headerlink" title="2.2 分区表"></a><strong>2.2 分区表</strong></h3><p>考虑到每个区可以安装不同的操作系统，主引导记录必须知道将控制权交给哪个区。</p>
+<p>分区表长度有64个字节，里面分为四项（所以一个硬盘最多有四个一级分区，又叫主分区），每一项16个字节</p>
+<p>主分区16个字节组成：</p>
+<table>
+<thead>
+<tr>
+<th><strong>范围&#x2F;字节</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1-1</td>
+<td>如果为0x80，就表示该分区是激活分区，控制权要交给这个分区。四个分区里面只能有一个是激活的</td>
+</tr>
+<tr>
+<td>2-4</td>
+<td>主分区第一个扇区的物理位置（柱面、磁头、扇区号）</td>
+</tr>
+<tr>
+<td>5-5</td>
+<td>主分区类型</td>
+</tr>
+<tr>
+<td>6-8</td>
+<td>主分区最后一个扇区的物理位置</td>
+</tr>
+<tr>
+<td>9-12</td>
+<td>该主分区第一个扇区的逻辑地址</td>
+</tr>
+<tr>
+<td>13-16</td>
+<td>主分区的扇区总数</td>
+</tr>
+</tbody></table>
+<h2 id="第三阶段-硬盘启动"><a href="#第三阶段-硬盘启动" class="headerlink" title="第三阶段-硬盘启动"></a><strong>第三阶段-硬盘启动</strong></h2><p>这时，计算机的控制权就交给了硬盘的某个分区了</p>
+<h3 id="3-1-情况A：卷引导记录"><a href="#3-1-情况A：卷引导记录" class="headerlink" title="3.1 情况A：卷引导记录"></a><strong>3.1 情况A：卷引导记录</strong></h3><p>计算机会读取激活分区的第一个扇区，叫做卷引导记录（Volume boot record，VBR）</p>
+<p>卷引导记录告诉计算机，操作系统在这个分区的位置。然后计算机就会加载操作系统了。</p>
+<h3 id="3-2-情况B：扩展分区和逻辑分区"><a href="#3-2-情况B：扩展分区和逻辑分区" class="headerlink" title="3.2 情况B：扩展分区和逻辑分区"></a><strong>3.2 情况B：扩展分区和逻辑分区</strong></h3><p>随着硬盘越来越大，四个分区已经不够了，需要更多分区。于是规定有一个分区可以定义为扩展分区（里面又分了好多个区，叫逻辑分区）。</p>
+<p>计算机首先读取扩展分区的第一个扇区，叫扩展引导记录（EBR）。它里面包含一张64字节的分区表，但是最多只有两项（也就是两个逻辑分区，包括它自身的分区表和下一个分区的分区表）。从里面找到第二个逻辑分区的位置，直到找到一个分区里面只包含它自己的分区表为止。</p>
+<h3 id="3-3-情况C：启动管理器"><a href="#3-3-情况C：启动管理器" class="headerlink" title="3.3 情况C：启动管理器"></a><strong>3.3 情况C：启动管理器</strong></h3><p>在这种情况下，计算机读取主引导记录前446个字节的机器码之后，不把控制权交给某一个分区，而是运行启动管理器（boot loader），由用户选择启动哪一个操作系统。</p>
+<p>Linux环境中，最流行的启动管理器是Grub。</p>
+<h2 id="第四阶段-操作系统"><a href="#第四阶段-操作系统" class="headerlink" title="第四阶段-操作系统"></a><strong>第四阶段-操作系统</strong></h2><p>控制权交给操作系统之后，操作系统的内核首先载入内存。</p>
+<p>所有进程的祖先叫进程0，idle进程，或者由于历史的原因叫做swapper进程。</p>
+<p>start_kernel()函数初始化内核需要的所有数据结构，激活终端，创建另一个叫做进程1的内核线程（一般叫做init进程），创建init进程之后，进程0执行cpu_idle()函数，该函数本质上是在开中断的情况下重复之星hlt汇编指令。当 没有其他进程处于TASK_RUNNING才选择执行进程0。</p>
+<p><strong>多处理器系统</strong>中每个CPU都有一个进程0，计算机启动之后首先启动一个CPU，禁用其他CPU，swapper进程进程初始化内核数据结构，通过copy_process()函数创建另外的swapper进程。</p>
+<p>进程0创建的内核线程执行init()函数，init()依次完成内核初始化。init()调用execve()系统调用装入可执行程序init，结果init内核线程变成了一个普通进程。</p>
+<p>以Linux系统为例，首先载入&#x2F;boot目录下面的kernel。内核加载成功后（如上），第一个运行的程序是&#x2F;sbin&#x2F;init，它根据配置文件产生init进程，pid进程编号为1，其它进程都是它的后代。</p>
+<p>然后init进程加载系统的各个模块，比如窗口和网络程序，直到&#x2F;bin&#x2F;login程序，跳出登录页面。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><strong>参考</strong></h2><ol>
+<li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/02/booting.html">计算机是如何启动的</a></li>
+<li>深入理解Linux内核</li>
+</ol>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5-BIOS"><span class="toc-text">第一阶段-BIOS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%A1%AC%E4%BB%B6%E8%87%AA%E6%A3%80"><span class="toc-text">1.1 硬件自检</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%90%AF%E5%8A%A8%E9%A1%BA%E5%BA%8F"><span class="toc-text">1.2 启动顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5-%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95"><span class="toc-text">第二阶段-主引导记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">2.1 主引导记录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="toc-text">2.2 分区表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5-%E7%A1%AC%E7%9B%98%E5%90%AF%E5%8A%A8"><span class="toc-text">第三阶段-硬盘启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%83%85%E5%86%B5A%EF%BC%9A%E5%8D%B7%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95"><span class="toc-text">3.1 情况A：卷引导记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%83%85%E5%86%B5B%EF%BC%9A%E6%89%A9%E5%B1%95%E5%88%86%E5%8C%BA%E5%92%8C%E9%80%BB%E8%BE%91%E5%88%86%E5%8C%BA"><span class="toc-text">3.2 情况B：扩展分区和逻辑分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%83%85%E5%86%B5C%EF%BC%9A%E5%90%AF%E5%8A%A8%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">3.3 情况C：启动管理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-text">第四阶段-操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://www.delta1037.cn/2019/Linux/Linux启动过程分析/">https://www.delta1037.cn/2019/Linux/Linux启动过程分析/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+    <div class="article-reward">
+        <a id="reward-btn" href="javascript:;">打赏</a>
+        <div id="reward-content">
+            <h6 class="reward-tit">“感谢你的支持，我会继续努力！”</h6>
+            <div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/wechat.jpg">
+                    <img class="er-code" src="/css/images/wechat-pay.jpg">
+                </div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/alipay.jpg">
+                    <img class="er-code" src="/css/images/alipay-pay.jpg">
+                </div>
+            </div>
+            <p class="reward-desc">扫码打赏，感谢支持</p>
+        </div>
+    </div>
+
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/" rel="tag">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E7%B3%BB%E7%BB%9F/" rel="tag">小系统</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2019/DianGroup/%E7%82%B9%E7%9F%B3%E6%88%90%E9%87%91%EF%BC%8C%E6%8C%A5%E5%88%80%E7%90%A2%E7%8E%89%E2%80%94%E2%80%94%E2%80%9C%E5%8F%8C%E5%88%9B%E8%80%81%E5%A4%AA-%E5%88%98%E7%8E%89%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          点石成金，挥刀琢玉——“双创老太”刘玉那些事儿
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/Deploy/InstallOracleDatabase9ionCentOS5(i386)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Install Oracle Database 9i on CentOS 5 (i386)
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/Project/Gitcommit%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/">Git commit信息规范</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Bugsfix/Rowsizetoolarge(-8126)/">Row size too large (&gt; 8126)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/">博客更新说明</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Deploy/hexo%E6%96%B0%E5%A2%9Emermaid%E6%94%AF%E6%8C%81/">hexo 新增mermaid支持</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Bugsfix/LatexfontspecError/">Latex fontspec Error</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 11.67px;">Bug</a> <a href="/tags/C-C/" style="font-size: 18.33px;">C/C++</a> <a href="/tags/Dian/" style="font-size: 10px;">Dian</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/GitLab/" style="font-size: 10px;">GitLab</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IP/" style="font-size: 10px;">IP</a> <a href="/tags/K8s/" style="font-size: 10px;">K8s</a> <a href="/tags/Kernel/" style="font-size: 16.67px;">Kernel</a> <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/NS3/" style="font-size: 10px;">NS3</a> <a href="/tags/Ping/" style="font-size: 11.67px;">Ping</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/SMS/" style="font-size: 10px;">SMS</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/Shell/" style="font-size: 15px;">Shell</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Terraria/" style="font-size: 11.67px;">Terraria</a> <a href="/tags/Typora/" style="font-size: 10px;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 16.67px;">博客搭建</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 11.67px;">封装</a> <a href="/tags/%E5%B0%8F%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">小系统</a> <a href="/tags/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/%E6%97%B6%E5%85%89/" style="font-size: 11.67px;">时光</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 11.67px;">游戏</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 10px;">状态机</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a> <a href="/tags/%E7%A7%9F%E6%88%BF/" style="font-size: 10px;">租房</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 11.67px;">程序设计</a> <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" style="font-size: 10px;">算法导论</a> <a href="/tags/%E7%B3%BB%E7%BB%9F/" style="font-size: 11.67px;">系统</a> <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 10px;">经济学</a> <a href="/tags/%E7%BC%96%E8%AF%91/" style="font-size: 15px;">编译</a> <a href="/tags/%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">美化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%AF%BE%E7%A8%8B/" style="font-size: 11.67px;">课程</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 15px;">软件</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 13.33px;">部署</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bugsfix/">Bugsfix</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dian%E5%9B%A2%E9%98%9F/">Dian团队</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/">工程管理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%B6%E5%85%89/">时光</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://dian.org.cn/">华中科技大学Dian团队</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://bbs.dian.org.cn/">Dian团队论坛</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://delta1037.notion.site">Notion知识共享板块</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2023 delta1037.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+    
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+    
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+    <script>
+      var gitalk = new Gitalk({
+        clientID: '79255b590bda0804dcc4',
+        clientSecret: '6405c9b64ff65c24179669cb3839f0bd7053c151',
+        repo: 'delta1037.github.io',
+        owner: 'delta1037',
+        admin: ['delta1037'],
+        id: md5(window.location.pathname),
+        distractionFreeMode: false,
+        language: 'zh-CN',
+        pagerDirection: 'last'
+      });
+      gitalk.render('comments');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
+
+
+
+  <script src='https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'default'});
+    }
+  </script>
+
+</body>
+</html>
