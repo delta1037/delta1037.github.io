@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   
   
-  <title>C/C++时间封装 | Delta1037</title>
+  <title>无线网卡找不到问题调试 | Delta1037</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <meta name="description" content="勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏">
@@ -88,7 +88,7 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-C_C++/C-C++时间封装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Bugsfix/无线网卡找不到问题调试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
     
@@ -96,7 +96,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      C/C++时间封装
+      无线网卡找不到问题调试
     </h1>
   
 
@@ -107,12 +107,12 @@
       
       <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-05-16T16:00:00.000Z" itemprop="datePublished">2021年05月17日</time>
+  <time class="dt-published" datetime="2023-09-10T16:00:00.000Z" itemprop="datePublished">2023年09月11日</time>
 </span>
       
   <div class="article-category">
     <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/categories/C-C/">C/C++</a>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
       
@@ -125,7 +125,7 @@
 
       
       
-<a href="/2021/C_C++/C-C++%E6%97%B6%E9%97%B4%E5%B0%81%E8%A3%85/#comments" class="article-comment-link">
+<a href="/2023/Bugsfix/%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E6%89%BE%E4%B8%8D%E5%88%B0%E9%97%AE%E9%A2%98%E8%B0%83%E8%AF%95/#comments" class="article-comment-link">
   
     
     
@@ -141,16 +141,45 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>以下为封装的获取纳秒，毫秒时间的接口、精确睡眠微秒接口、按照指定频率执行某一个功能的封装和时间转字符串接口。</p>
+        <p>在 rock 3a 系列板子上配置无线网，需要单独购买网卡。一开始在淘宝买了一块 Intel 7265 无线网卡（rock 3a 官方限定的，应该其它型号也可以，但是需要注意内核版本），使用体验还可以。后来又采购了一批 rock 3a 的板子，于是又按照原来的单子买了一块 Intel 7265 无线网卡，但是接上去之后找不到无线网卡，以下记录一下排查过程和思考。</p>
 <span id="more"></span>
 
-<h2 id="一、获取时间"><a href="#一、获取时间" class="headerlink" title="一、获取时间"></a><strong>一、获取时间</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* 获取NS时间 -9 */</span><br><span class="line">static uint64_t getTimeOfNs() &#123;</span><br><span class="line">    struct timespec tv;</span><br><span class="line">    clock_gettime(CLOCK_REALTIME, &amp;tv);</span><br><span class="line">    return tv.tv_sec*1000000000 + tv.tv_nsec;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 获取MS时间 -3 */</span><br><span class="line">uint64_t get_time_of_ms()</span><br><span class="line">&#123;</span><br><span class="line">    struct timeval tv;</span><br><span class="line">    gettimeofday(&amp;tv, 0);</span><br><span class="line">    return tv.tv_sec * (uint64_t)1000 + tv.tv_usec / 1000;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><p>硬件环境：</p>
+<ul>
+<li>Rock 3A 开发板</li>
+<li>Intel 7265 无线网卡（M.2 接口）</li>
+</ul>
+<p>问题现象：</p>
+<ul>
+<li><code>ifconfig</code> 看不到无线网</li>
+</ul>
+<p>问题猜测：</p>
+<ul>
+<li>最糟糕的情形是硬件是个坏的，买了也很久了没做过测试可能不给换了</li>
+<li>其次可能是网卡适配问题，但是为什么另一块网卡可以用呢？</li>
+</ul>
+<h1 id="二、问题排查"><a href="#二、问题排查" class="headerlink" title="二、问题排查"></a>二、问题排查</h1><h2 id="2-1-硬件排查"><a href="#2-1-硬件排查" class="headerlink" title="2.1 硬件排查"></a>2.1 硬件排查</h2><p>从网上了解到 <code>lspci</code> 命令可以查看主板（开发板）上接入的 PCI 设备（根据实际应用发现也可以查看 M.2 设备）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">lspci 输出</span></span><br><span class="line">00:00.0 PCI bridge: Fuzhou Rockchip Electronics Co., Ltd Device 3566 (rev 01)</span><br><span class="line">01:00.0 Network controller: Intel Corporation Wireless 7265 (rev 48)</span><br></pre></td></tr></table></figure>
 
-<h2 id="二、精确睡眠"><a href="#二、精确睡眠" class="headerlink" title="二、精确睡眠"></a><strong>二、精确睡眠</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/* 精确睡眠US时间 */</span><br><span class="line">static void sleepUS(uint64_t usec)&#123;</span><br><span class="line">    struct timeval tv;</span><br><span class="line">    tv.tv_sec = usec / 1000000UL;</span><br><span class="line">    tv.tv_usec = usec % 1000000UL;</span><br><span class="line">    errno = 0;</span><br><span class="line">    select(0, 0, 0, NULL, &amp;tv);</span><br><span class="line">    if (errno != 0)&#123;</span><br><span class="line">        // error</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面 <code>lspci</code> 的输出可以看出来，应该不是硬件坏了，因为硬件的版本还是可以看到的。</p>
+<p>查找到 <code>-k</code> 参数可以看对应的驱动程序，内核模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">lspci -k 输出</span></span><br><span class="line">00:00.0 PCI bridge: Fuzhou Rockchip Electronics Co., Ltd Device 3566 (rev 01)</span><br><span class="line">        Kernel driver in use: pcieport</span><br><span class="line">lspci: Unable to load libkmod resources: error -12</span><br><span class="line">01:00.0 Network controller: Intel Corporation Wireless 7265 (rev 48)</span><br><span class="line">        Subsystem: Intel Corporation Dual Band Wireless-AC 7265</span><br></pre></td></tr></table></figure>
 
-<h2 id="三、按照指定频率执行"><a href="#三、按照指定频率执行" class="headerlink" title="三、按照指定频率执行"></a><strong>三、按照指定频率执行</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">int freq_op(int freq)</span><br><span class="line">&#123;</span><br><span class="line">    uint64_t freq_interval_ns = uint64_t(1000000000/freq)</span><br><span class="line">    uint64_t start_time_ns = getTimeOfNs();</span><br><span class="line">    uint64_t do_times_count = 0;</span><br><span class="line">    while(true)</span><br><span class="line">    &#123;</span><br><span class="line">        // do some thing</span><br><span class="line">        do_times_count++;</span><br><span class="line"></span><br><span class="line">        // 得到从开始到现在的运行总时间；计算睡眠时间</span><br><span class="line">        uint64_t run_time_ns = getTimeOfNs() - start_time_ns;</span><br><span class="line">        uint64_t do_times_should = uint64_t(run_time_ns/freq_interval_ns);</span><br><span class="line">        if(do_times_count &gt; do_times_should)</span><br><span class="line">        &#123;</span><br><span class="line">            // 用到了上面精确睡眠的函数</span><br><span class="line">            sleepUS((do_times_count - do_times_should) * freq_interval_ns -  - run_time_ns % freq_interval_ns);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面我以为找到了重点：<code>lspci: Unable to load libkmod resources: error -12</code>，但是我在另一块开发板上也发现了同样的问题。</p>
+<p>再次使用 <code>-v</code> 参数查看详细的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">lspci -v 输出</span></span><br><span class="line">00:00.0 PCI bridge: Fuzhou Rockchip Electronics Co., Ltd Device 3566 (rev 01) (prog-if 00 [Normal decode])</span><br><span class="line">        Flags: bus master, fast devsel, latency 0, IRQ 108</span><br><span class="line">        Bus: primary=00, secondary=01, subordinate=ff, sec-latency=0</span><br><span class="line">        I/O behind bridge: [disabled]</span><br><span class="line">        Memory behind bridge: 00900000-009fffff [size=1M]</span><br><span class="line">        Prefetchable memory behind bridge: [disabled]</span><br><span class="line">        Expansion ROM at 300a00000 [virtual] [disabled] [size=64K]</span><br><span class="line">        Capabilities: [40] Power Management version 3</span><br><span class="line">        Capabilities: [50] MSI: Enable+ Count=16/32 Maskable- 64bit+</span><br><span class="line">        Capabilities: [70] Express Root Port (Slot-), MSI 00</span><br><span class="line">        Capabilities: [b0] MSI-X: Enable- Count=1 Masked-</span><br><span class="line">        Capabilities: [100] Advanced Error Reporting</span><br><span class="line">        Capabilities: [148] Secondary PCI Express</span><br><span class="line">        Capabilities: [160] L1 PM Substates</span><br><span class="line">        Capabilities: [170] Vendor Specific Information: ID=0002 Rev=4 Len=100 &lt;?&gt;</span><br><span class="line">        Kernel driver in use: pcieport</span><br><span class="line">lspci: Unable to load libkmod resources: error -12</span><br><span class="line"></span><br><span class="line">01:00.0 Network controller: Intel Corporation Wireless 7265 (rev 48)</span><br><span class="line">        Subsystem: Intel Corporation Dual Band Wireless-AC 7265</span><br><span class="line">        Flags: fast devsel, IRQ 107</span><br><span class="line">        Memory at 300900000 (64-bit, non-prefetchable) [size=8K]</span><br><span class="line">        Capabilities: [c8] Power Management version 3</span><br><span class="line">        Capabilities: [d0] MSI: Enable- Count=1/1 Maskable- 64bit+</span><br><span class="line">        Capabilities: [40] Express Endpoint, MSI 00</span><br><span class="line">        Capabilities: [100] Advanced Error Reporting</span><br><span class="line">        Capabilities: [140] Device Serial Number 64-80-99-ff-ff-a8-34-a5</span><br><span class="line">        Capabilities: [14c] Latency Tolerance Reporting</span><br><span class="line">        Capabilities: [154] L1 PM Substates</span><br></pre></td></tr></table></figure>
 
-<h2 id="四、秒转换为时间字符串"><a href="#四、秒转换为时间字符串" class="headerlink" title="四、秒转换为时间字符串"></a><strong>四、秒转换为时间字符串</strong></h2><figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/* 将时间秒计数转换成 dd:hh:mm:ss的格式 */</span><br><span class="line">void scaleDownTime(uint64_t s_time, std::string &amp;time)</span><br><span class="line">&#123;</span><br><span class="line">    char buffer[128];</span><br><span class="line">    int d = 0;</span><br><span class="line">    int h = 0;</span><br><span class="line">    int m = 0;</span><br><span class="line">    int s = 0;</span><br><span class="line"></span><br><span class="line">    if(s_time &gt;= 3600 * 24)&#123;</span><br><span class="line">        d = s_time / (3600 * 24);</span><br><span class="line">        s_time = s_time % (3600 * 24);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(s_time &gt;= 3600)&#123;</span><br><span class="line">        h = s_time / 3600;</span><br><span class="line">        s_time = s_time % 3600;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(s_time &gt;= 60)&#123;</span><br><span class="line">        m = s_time / 60;</span><br><span class="line">        s_time = s_time % 60;</span><br><span class="line">    &#125;</span><br><span class="line">    s = s_time;</span><br><span class="line">    if(d &gt; 0)&#123;</span><br><span class="line">        int size = snprintf(buffer, 128, &quot;%dd %02d:%02d:%02d&quot;, d, h, m, s);</span><br><span class="line">        buffer[size] = &#x27;\0&#x27;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        int size = snprintf(buffer, 128, &quot;%02d:%02d:%02d&quot;, h, m, s);</span><br><span class="line">        buffer[size] = &#x27;\0&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    time = std::string(buffer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样的，这些信息也和另外一块板子上一模一样，没有参考价值。</p>
+<p>在使用 <code>-k</code> 参数查看内核信息时，并没有看到有内核信息输出，所以问题是不是出在内核驱动上？于是想到了 <code>dmesg</code> 命令。</p>
+<h2 id="2-2-驱动排查"><a href="#2-2-驱动排查" class="headerlink" title="2.2 驱动排查"></a>2.2 驱动排查</h2><p><code>dmesg</code> 命令可以查看开机信息，可以看各个模块是否加载成功。查看 <code>dmesg</code> 输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dmesg 输出（部分）</span></span><br><span class="line">[    5.735812] iwlwifi 0000:01:00.0: Direct firmware load for iwlwifi-7265-17.ucode failed with error -2</span><br><span class="line">[    5.735933] iwlwifi 0000:01:00.0: no suitable firmware found!</span><br><span class="line">[    5.736069] iwlwifi 0000:01:00.0: iwlwifi-7265-17 is required</span><br><span class="line">[    5.736093] iwlwifi 0000:01:00.0: check git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git</span><br><span class="line">[    5.969330] usbcore: registered new interface driver btusb</span><br><span class="line">[    5.988375] Bluetooth: hci0: read Intel version: 370810011002270d00</span><br><span class="line">[    5.990701] bluetooth hci0: Direct firmware load for intel/ibt-hw-37.8.10-fw-1.10.2.27.d.bseq failed with error -2</span><br><span class="line">[    5.990737] Bluetooth: hci0: failed to open Intel firmware file: intel/ibt-hw-37.8.10-fw-1.10.2.27.d.bseq (-2)</span><br><span class="line">[    5.993308] Bluetooth: hci0: Intel Bluetooth firmware file: intel/ibt-hw-37.8.bseq</span><br><span class="line">[    5.995534] Bluetooth: hci0: unexpected event for opcode 0xfc2f</span><br><span class="line">[    5.998546] Bluetooth: hci0: Intel firmware patch completed</span><br></pre></td></tr></table></figure>
+
+<p>于是就看到了启动时加载 wifi 固件 <code>iwlwifi-7265-17.ucode</code> 和蓝牙固件 <code>intel/ibt-hw-37.8.10-fw-1.10.2.27.d.bseq</code> 都失败了，这两个模块在 <code>/usr/lib/firmware</code> 中，查看固件目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(blockchain_board) root@rock-3a:/usr/lib/firmware# pwd</span><br><span class="line">/usr/lib/firmware</span><br><span class="line">(blockchain_board) root@rock-3a:/usr/lib/firmware# ls</span><br><span class="line">ath10k  intel                   iwlwifi-cc-a0-46.ucode        rtl8723du_config  rtl8821cu_config  rtl8852bu_config  rtl_bt</span><br><span class="line">brcm    iwlwifi-7265D-29.ucode  iwlwifi-ty-a0-gf-a0-59.ucode  rtl8723du_fw      rtl8821cu_fw      rtl8852bu_fw      rtlwifi</span><br><span class="line">(blockchain_board) root@rock-3a:/usr/lib/firmware# ls intel/</span><br><span class="line">ibt-0041-0041.ddc  ibt-0041-0041.sfi  ibt-hw-37.8.10-fw-1.10.3.11.e.bseq  ibt-hw-37.8.10-fw-22.50.19.14.f.bseq  ibt-hw-37.8.bseq</span><br><span class="line">(blockchain_board) root@rock-3a:/usr/lib/firmware#</span><br></pre></td></tr></table></figure>
+
+<p>可以看到应该是缺了这两个固件，所以 WIFI 才没有启动成功！从列出来的固件可以看出，无线网卡 7265 只有一个 <code>iwlwifi-7265D-29.ucode</code> 固件，应该是 7265 也有不同的固件版本才导致无线网卡会加载失败吧。蓝牙固件也是，只是版本不一样。</p>
+<h2 id="2-3-解决"><a href="#2-3-解决" class="headerlink" title="2.3 解决"></a>2.3 解决</h2><p>从网上找到这两个固件，放到固件的目录，重启即可解决无线找不到的问题了。</p>
+<h1 id="三、思考"><a href="#三、思考" class="headerlink" title="三、思考"></a>三、思考</h1><p>我们无法一开始就知道是固件版本的问题，只能从整体的结构上去分析问题到底出在哪里。从整体上分析问题要对整体的结构都有所了解，即使不知道细节，也可以将问题定位到一个很小的范围，这样才能更快更好的解决问题。</p>
 
         
             <div id="toc-article">
@@ -158,7 +187,7 @@
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4"><span class="toc-text">一、获取时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%B2%BE%E7%A1%AE%E7%9D%A1%E7%9C%A0"><span class="toc-text">二、精确睡眠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8C%89%E7%85%A7%E6%8C%87%E5%AE%9A%E9%A2%91%E7%8E%87%E6%89%A7%E8%A1%8C"><span class="toc-text">三、按照指定频率执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%A7%92%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%97%B6%E9%97%B4%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">四、秒转换为时间字符串</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">一、问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="toc-text">二、问题排查</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%A1%AC%E4%BB%B6%E6%8E%92%E6%9F%A5"><span class="toc-text">2.1 硬件排查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%A9%B1%E5%8A%A8%E6%8E%92%E6%9F%A5"><span class="toc-text">2.2 驱动排查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%A7%A3%E5%86%B3"><span class="toc-text">2.3 解决</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%80%9D%E8%80%83"><span class="toc-text">三、思考</span></a></li></ol>
     </div>
   </div>
 
@@ -167,7 +196,7 @@
         
         
           <blockquote id="copyright">
-              <p>原文链接: <a href="https://www.delta1037.cn/2021/C_C++/C-C++时间封装/">https://www.delta1037.cn/2021/C_C++/C-C++时间封装/</a></p>
+              <p>原文链接: <a href="https://www.delta1037.cn/2023/Bugsfix/无线网卡找不到问题调试/">https://www.delta1037.cn/2023/Bugsfix/无线网卡找不到问题调试/</a></p>
               <p>版权声明: 转载请注明出处.</p>
           </blockquote>
         
@@ -197,7 +226,7 @@
 
 
           
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C/" rel="tag">C&#x2F;C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%81%E8%A3%85/" rel="tag">封装</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/" rel="tag">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
           
     <div class="social-share">
@@ -212,24 +241,15 @@
         
 <nav id="article-nav">
   
-    <a href="/2021/C_C++/%E5%8A%A8%E6%80%81%E5%BA%93%E6%96%87%E4%BB%B6%E7%9A%84%E8%A3%85%E8%BD%BD/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/Skill/Matplotlib%E5%9B%BE%E5%83%8F%E7%BB%93%E6%9E%84/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">older</strong>
       <div class="article-nav-title">
         
-          动态库文件的装载
+          Matplotlib图像结构
         
       </div>
     </a>
   
-  
-    <a href="/2021/C_C++/C++ListShuffle/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
-      <div class="article-nav-title">
-        
-          C++ List Shuffle
-        
-      </div>
-    </a>
   
 </nav>
 
