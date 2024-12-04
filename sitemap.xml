@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.delta1037.cn/2028/Project/%E9%9D%A2%E8%AF%95-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+    <loc>https://www.delta1037.cn/2024/Project/%E9%9D%A2%E8%AF%95-%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2028/Project/%E9%9D%A2%E8%AF%95-%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://www.delta1037.cn/2024/Project/%E9%9D%A2%E8%AF%95-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -110,6 +110,24 @@
   </url>
   
   <url>
+    <loc>https://www.delta1037.cn/2020/Math/%E5%9C%A3%E8%AF%9E%E6%A0%91%E5%BD%A9%E7%81%AF%E6%9B%B2%E7%BA%BF%E6%96%B9%E7%A8%8B/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2018/Others/K8s%E6%A6%82%E5%BF%B5%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/2018/School/%E7%9F%AD%E4%BF%A1%E6%94%B6%E5%8F%91%E5%8A%9F%E8%83%BD%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -128,24 +146,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2018/Others/K8s%E6%A6%82%E5%BF%B5%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2020/Math/%E5%9C%A3%E8%AF%9E%E6%A0%91%E5%BD%A9%E7%81%AF%E6%9B%B2%E7%BA%BF%E6%96%B9%E7%A8%8B/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2020/Math/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/Linux/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E5%86%85%E6%A0%B8-%E7%BB%AA%E8%AE%BA/</loc>
+    <loc>https://www.delta1037.cn/2021/Linux/%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E8%84%9A%E6%9C%AC/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -164,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/Linux/%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E8%84%9A%E6%9C%AC/</loc>
+    <loc>https://www.delta1037.cn/2021/Linux/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E5%86%85%E6%A0%B8-%E7%BB%AA%E8%AE%BA/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -209,15 +209,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2017/Linux/Ping%E7%AC%94%E8%AE%B0(%E4%B8%80)/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2020/Linux/Linux%E7%BB%88%E7%AB%AF%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -228,6 +219,15 @@
   
   <url>
     <loc>https://www.delta1037.cn/2018/Linux/Linux%E5%B0%8F%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%B8%80%EF%BC%89-%E5%B0%8F%E7%B3%BB%E7%BB%9F%E5%88%B6%E4%BD%9C/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2017/Linux/Ping%E7%AC%94%E8%AE%B0(%E4%B8%80)/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -272,15 +272,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2020/Linux/Linux%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2020/Linux/ioctl/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -290,7 +281,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2020/Linux/fcntl/</loc>
+    <loc>https://www.delta1037.cn/2020/Linux/Linux%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -299,25 +290,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/C_C++/C-C++%E6%97%B6%E9%97%B4%E5%B0%81%E8%A3%85/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2021/Linux/Linux%E5%90%8E%E5%8F%B0%E6%89%A7%E8%A1%8C/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2021/Linux/IP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E5%AD%97%E4%BA%92%E8%BD%AC/</loc>
+    <loc>https://www.delta1037.cn/2021/Deploy/Typora%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -335,15 +308,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/Game/tModLoader%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2021/Game/Terraria%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -353,7 +317,61 @@
   </url>
   
   <url>
+    <loc>https://www.delta1037.cn/2021/Game/tModLoader%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/C_C++/C-C++%E6%97%B6%E9%97%B4%E5%B0%81%E8%A3%85/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/Deploy/pg_repackWindow%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/Linux/IP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E5%AD%97%E4%BA%92%E8%BD%AC/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/Linux/Linux%E5%90%8E%E5%8F%B0%E6%89%A7%E8%A1%8C/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/2020/Economics/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8D%81%E5%A4%A7%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2020/Linux/fcntl/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -380,24 +398,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/Deploy/Typora%E5%9B%BE%E5%BA%8A%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2021/Deploy/pg_repackWindow%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2019/Deploy/MySQL%E4%BD%BF%E7%94%A8MariaDBAuditPlugin%E5%AE%9E%E7%8E%B0%E5%AE%A1%E8%AE%A1%E5%8A%9F%E8%83%BD/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -407,43 +407,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2017/Deploy/LAMP+WordPress%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2019/Deploy/InstallOracleDatabase9ionCentOS5(i386)/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2019/Deploy/CentOS6%E5%AE%89%E8%A3%85GitLab%E6%9C%8D%E5%8A%A1%E7%AB%AF/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2017/CN/LinuxSocket%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2017/Deploy/Hexo+Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://www.delta1037.cn/2021/C_C++/C++ListShuffle/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -479,7 +443,16 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/C_C++/C++ListShuffle/</loc>
+    <loc>https://www.delta1037.cn/2019/Deploy/CentOS6%E5%AE%89%E8%A3%85GitLab%E6%9C%8D%E5%8A%A1%E7%AB%AF/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2019/Deploy/InstallOracleDatabase9ionCentOS5(i386)/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -506,7 +479,34 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2017/C_C++/CMake%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://www.delta1037.cn/2017/CN/LinuxSocket%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2017/Deploy/Hexo+Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2017/Deploy/LAMP+WordPress%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/OS/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -542,24 +542,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2021/Times/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/2021/OS/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/</loc>
-    
-    <lastmod>2024-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/2017/Algorithm/%E7%8A%B6%E6%80%81%E6%9C%BA/</loc>
     
     <lastmod>2024-12-04</lastmod>
@@ -569,7 +551,16 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/</loc>
+    <loc>https://www.delta1037.cn/2017/C_C++/CMake%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2021/Times/%E8%80%83%E7%A0%94%E6%84%9F%E6%83%B3/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -588,6 +579,15 @@
   
   <url>
     <loc>https://www.delta1037.cn/2022/Project/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</loc>
+    
+    <lastmod>2024-12-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/</loc>
     
     <lastmod>2024-12-04</lastmod>
     
@@ -641,6 +641,13 @@
 
   
   <url>
+    <loc>https://www.delta1037.cn/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -648,14 +655,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/Socket/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/</loc>
+    <loc>https://www.delta1037.cn/tags/SSH/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -670,13 +670,6 @@
   
   <url>
     <loc>https://www.delta1037.cn/tags/Bug/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/SSH/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -718,13 +711,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/%E7%BC%96%E8%AF%91/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/tags/%E5%B0%81%E8%A3%85/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -732,7 +718,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
+    <loc>https://www.delta1037.cn/tags/%E7%BC%96%E8%AF%91/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -781,6 +767,13 @@
   </url>
   
   <url>
+    <loc>https://www.delta1037.cn/tags/PostgreSQL/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/tags/%E7%BE%8E%E5%8C%96/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -795,6 +788,41 @@
   </url>
   
   <url>
+    <loc>https://www.delta1037.cn/tags/Socket/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/Dian/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/Terraria/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/tags/%E7%A7%9F%E6%88%BF/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -803,20 +831,6 @@
   
   <url>
     <loc>https://www.delta1037.cn/tags/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/PostgreSQL/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/Dian/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -858,27 +872,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/Terraria/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E6%B8%B8%E6%88%8F/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/Git/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -886,7 +879,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://www.delta1037.cn/tags/K8s/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -900,7 +893,42 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/Math/</loc>
+    <loc>https://www.delta1037.cn/tags/%E8%A7%A3%E7%A0%81/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/Git/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E6%97%B6%E5%85%89/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E8%80%83%E7%A0%94/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/tags/%E7%BB%98%E5%9B%BE%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -928,35 +956,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/tags/%E7%BB%98%E5%9B%BE%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E6%97%B6%E5%85%89/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E8%80%83%E7%A0%94/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/%E8%A7%A3%E7%A0%81/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/tags/K8s/</loc>
+    <loc>https://www.delta1037.cn/tags/Math/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -993,13 +993,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/categories/Bugsfix/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1021,13 +1014,6 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.delta1037.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1035,7 +1021,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <loc>https://www.delta1037.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1049,7 +1035,35 @@
   </url>
   
   <url>
+    <loc>https://www.delta1037.cn/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.delta1037.cn/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/categories/OS/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.delta1037.cn/categories/%E5%85%B6%E5%AE%83/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1077,21 +1091,7 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/Math/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/categories/%E8%AF%BE%E7%A8%8B/</loc>
-    <lastmod>2024-12-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.delta1037.cn/categories/OS/</loc>
+    <loc>https://www.delta1037.cn/categories/%E6%97%B6%E5%85%89/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1105,14 +1105,14 @@
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E6%97%B6%E5%85%89/</loc>
+    <loc>https://www.delta1037.cn/categories/%E8%AF%BE%E7%A8%8B/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.delta1037.cn/categories/%E5%85%B6%E5%AE%83/</loc>
+    <loc>https://www.delta1037.cn/categories/Math/</loc>
     <lastmod>2024-12-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
