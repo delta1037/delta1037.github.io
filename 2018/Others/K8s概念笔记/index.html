@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>K8s概念笔记 | Delta1037</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Delta1037" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Delta1037</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术是纯净的</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Others/K8s概念笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      K8s概念笔记
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-05-03T16:00:00.000Z" itemprop="datePublished">2018年05月04日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2018/Others/K8s%E6%A6%82%E5%BF%B5%E7%AC%94%E8%AE%B0/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>K8s概念笔记</p>
+<span id="more"></span>
+
+<h2 id="My-Study-of-kubernetes"><a href="#My-Study-of-kubernetes" class="headerlink" title="My Study of kubernetes"></a><strong>My Study of kubernetes</strong></h2><p>kubernetes结构图-<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0a656b3d94b2">来源</a></p>
+<h3 id="基本概念和术语"><a href="#基本概念和术语" class="headerlink" title="基本概念和术语"></a><strong>基本概念和术语</strong></h3><h3 id="master"><a href="#master" class="headerlink" title="master"></a><strong>master</strong></h3><p>**功能:**集群控制节点,负责整个集群的管理和控制,属于首脑 master节点上运行的关键进程 - Kubernetes API Server(kube-apiserver):提供HTTP Rest接口的关键服务进程,kubernetes里所有资源的增删查改操作的唯一入口,也是集群控制的入口进程 - Kubernetes Controller Manager(kube-controller-manager):kubernetes里资源对象的自动化控制中心 - Kubernetes Scheduler(kube-scheduler):负责资源调度(Pod调度)的进程</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a><strong>Node</strong></h3><p>除了Master,kubernetes中的其它机器被称为node节点,node节点是kubernetes集群中的负载节点,每个node都会被分配工作负载(docker容器),当某个node出错时,该节点的任务会被master自动转移到其它节点上.<br>node上的关键进程 - kubelet:负责pod对应的容器的创建,启动停止等任务,同时与master密切协作,实现集群管理 - kube-proxy:实现kubernetes Service的通信与负载均衡 - Docker engine(docker):Docker引擎,负责本机的容器创建和管理</p>
+<h3 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a><strong>Pod</strong></h3><p>每个pod有一个根容器Pause,还有一个或者多个用户业务容器<br>Why kubernetes have Pod? - 在一组容器作为一个单元时,很难对整体进行操作,引入业务无关并且不易死亡的Pause容器作为Pod的根容器,以它的状态代表整个容器组的状态 - Pod里的多个业务共享Pause里的IP,共享Pause容器挂接的Volume,既简化了业务之间的通信问题,也解决了文件共享问题</p>
+<h3 id="Label"><a href="#Label" class="headerlink" title="Label"></a><strong>Label</strong></h3><p>**功能:**Label可以附加到各种资源对象上,例如node,pod,service,rc等,一个资源对象可以定义任意数量的Label,同一个Label也可以添加到任意数量的资源对象上去,以提供Label Selector来选择对象 标签选择方式: - 等式:name&#x3D;redis-slave,name!&#x3D;redis-slave - 集合:name in (redis-master,redis-slave),name not in (redis-master,redis-slave) Label和Label Selector 共同构成了kubernetes系统中最核心的应用模型,使得被管理对象能够被精细的分组管理,实现整个集群的高可用性</p>
+<h3 id="Replication-Controller-RC"><a href="#Replication-Controller-RC" class="headerlink" title="Replication Controller(RC)"></a><strong>Replication Controller(RC)</strong></h3><p>管理 Pods 的生命周期。它们确保指定数量的 Pods 会一直运行，还有实现资源伸缩。 - 定义RC实现Pod的创建与副本数量的自动控制 - RC 通过Lable Selector机制实现对副本的自动控制 - 通过改变RC的Pod副本数量，实现Pod的扩容或缩容 - 通过改变RC里Pod模板中的镜像版本，实现Pod的滚动更新</p>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a><strong>Deployment</strong></h3><p>Deployment可以认为是RC的升级版，最大的区别是我们可以随时知道POD容器的部署进度</p>
+<ul>
+<li>使用场景:<ul>
+<li>创建一个Deployment对象来生成RC并完成Pod副本的创建过程</li>
+<li>检查Deployment的状态看部署动作是否完成</li>
+<li>更新deployment以创建新的Pod(升级)</li>
+<li>如果当前Deployment不稳定则回滚到早先版本</li>
+<li>暂停Deployment以便于一次修改多个PodTemplateSpec的配置项，之后再进行发布</li>
+<li>扩展Deployment以应对高负载</li>
+<li>查看Deployment的状态，以此作为发布是否成功的指标</li>
+<li>清理不在需要的旧版本RC</li>
+</ul>
+</li>
+</ul>
+<h3 id="Horizontal-Pod-Autoscaler-HPA"><a href="#Horizontal-Pod-Autoscaler-HPA" class="headerlink" title="Horizontal Pod Autoscaler(HPA)"></a><strong>Horizontal Pod Autoscaler(HPA)</strong></h3><p>HPA也是一种资源对象，通过追踪分析RC控制的pod的负载变化情况来确定是否需要针对性地调整目标pod的副本数（增加或者减少） Pod负载的度量指标: - CpuUtilizationPercentage（CPU利用率）,取所有副本自身CPU利用率的平均值（需要定义Pod Request值） - 应用程序自定义的度量指标，比如TPS或者QPS</p>
+<h3 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a><strong>StatefulSet</strong></h3><p>用于实现有状态的集群管理，可以将它看做Deployment&#x2F;RC的一个变种 特性: - StatefulSet里的每个Pod都有稳定、唯一的网络标识，可以用来发现集群的其他成员 - StatefulSet控制的Pod副本的启停顺序是受控的，如StatefulSet名叫zk,则第一个叫做zk-0，第二个叫做zk-2，依次类推 - Stateful里的Pod采用稳定的持久化存储卷，通过PV&#x2F;PVC实现</p>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a><strong>Service</strong></h3><ul>
+<li>service定义了一个服务的访问入库地址，前端应用（Pod）通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端Pod副本集群之间则是通过Label Selector来实现无缝对接的。RC的作用实际上是保证service服务能力和服务质量始终处于预期的标准。</li>
+<li>一组Pod组成的服，客户端如何访问？每个Node上的kube-proxy进程负责把对service的请求转发的后端某个Pod的实例上，并在内部实现了服务的负载均衡与会话保持机制。但需要注意的是：service不是共用一个IP，而是每个Service分配了一个全局唯一的虚拟IP地址（ClusterIP），服务调用就变成一个TCP网络通信。</li>
+<li>kubernetes的服务发现机制，Service对象都有一个唯一的ClusterIP以及唯一的名字，在老版本中通过自动注入环境变量将service的name与ClusterIP绑定，新版本中采用插件的方式引入了DNS系统，把service的name作为DNS域名，然后程序就可以通过service的name来建立通信连接了</li>
+<li>外部系统访问service的关键在于3种IP，即：<ul>
+<li>1.Node IP node节点的IP地址，集群之外的节点访问集群内的服务时，必须要通过NodeIP进行访问</li>
+<li>2.Pod IP pod的IP地址，Docker Engine根据dicker0网桥的IP地址段进行分类的一个虚拟的二层网络的IP地址</li>
+<li>3.Cluster IP service的IP地址，虚拟的IP，它的特点：仅作用域service对象，由k8s管理和分配IP地址;无法被ping;只能结合service port组成一个具体的通信端口，单独的Cluster IP不具备通信基础;集群之内 Node&#x2F;pod&#x2F;cluster之间的通信与通常的IP路由与很大的不同</li>
+</ul>
+</li>
+<li>service的cluster IP无法供外部直接使用，但通过指定服务的port绑定在节点的port上，即可进行访问；当pod位于多个node时，通过nodeip:port访问到的是nodeip所在node上的pod,如需负载可以考虑使用硬件负载均衡器或者Nginx</li>
+</ul>
+<h3 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a><strong>Volume</strong></h3><p>volume是pod中能够别多个容器访问的共享目录；k8s中volume定义在pod上，然后被pod中的多个容器挂载到具体的目录下；volume与pod的生命周期相同 类型: - emptyDir：Pod分配到node时创建的，它的初始内容为空，并且无需指定宿主机上对应的目录文件，pod从node上移除时，则emptyDir中的数据永久删除；emptyDir的用途有： - 临时空间 - 长时间任务的checkpoint点 - 一个容器需要从另一个容器获取数据的目录</p>
+<ul>
+<li>hostPath，在pod上挂载宿主机的文件或目录，<ul>
+<li>主要用途：<ul>
+<li>容器应用生成的文件（如日志）需要永久保存时</li>
+<li>需要访问宿主机的文件时</li>
+</ul>
+</li>
+<li>注意事项:<ul>
+<li>不同的node上具有相同配置的pod可能因为宿主机上的目录和文件不同而导致对Volume上目录和文件的访问结果不一致</li>
+<li>hostPath无法纳入资源配额管理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NFS，使用NFS网络文件系统共享存储数据</li>
+<li>其他类型：ceph、glusterfs等</li>
+</ul>
+<h3 id="Persistent-Volume-PV"><a href="#Persistent-Volume-PV" class="headerlink" title="Persistent Volume(PV)"></a><strong>Persistent Volume(PV)</strong></h3><ul>
+<li>PV是k8s集群中某个网络存储中对应的一块存储，它和Volume的区别：<ul>
+<li>PV只能是网络存储，不属于任何Node，但可以在每个Node上访问</li>
+<li>PV独立于Pod定义</li>
+<li>PV目前支持的类型涵盖了很多公有云平台存储（gce、aws）以及一些网络文件系统（NFS）</li>
+</ul>
+</li>
+<li>Pod想申请PV时，需要先定义一个PVC（Persistent Volume Claim），然后在Pod的Volume中引用定义好的PVC</li>
+</ul>
+<h3 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a><strong>Namespace</strong></h3><ul>
+<li>Namespace通过将集群中的资源对象分配（逻辑上的）到不同的Namespace中，形成逻辑上的分组不同的项目、用户组等，便于实现多租户资源管理。 默认的namespace是default</li>
+<li>声明资源对象时，在metadata一项中可以指定，如namespace: dev</li>
+</ul>
+<h3 id="Annotation"><a href="#Annotation" class="headerlink" title="Annotation"></a><strong>Annotation</strong></h3><p>注解与Label类似，但具有严格的命名规则</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Study-of-kubernetes"><span class="toc-text">My Study of kubernetes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD"><span class="toc-text">基本概念和术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#master"><span class="toc-text">master</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pod"><span class="toc-text">Pod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Label"><span class="toc-text">Label</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Replication-Controller-RC"><span class="toc-text">Replication Controller(RC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Horizontal-Pod-Autoscaler-HPA"><span class="toc-text">Horizontal Pod Autoscaler(HPA)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StatefulSet"><span class="toc-text">StatefulSet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service"><span class="toc-text">Service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Volume"><span class="toc-text">Volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Persistent-Volume-PV"><span class="toc-text">Persistent Volume(PV)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namespace"><span class="toc-text">Namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Annotation"><span class="toc-text">Annotation</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://www.delta1037.cn/2018/Others/K8s概念笔记/">https://www.delta1037.cn/2018/Others/K8s概念笔记/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+    <div class="article-reward">
+        <a id="reward-btn" href="javascript:;">打赏</a>
+        <div id="reward-content">
+            <h6 class="reward-tit">“感谢你的支持，我会继续努力！”</h6>
+            <div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/wechat.jpg">
+                    <img class="er-code" src="/css/images/wechat-pay.jpg">
+                </div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/alipay.jpg">
+                    <img class="er-code" src="/css/images/alipay-pay.jpg">
+                </div>
+            </div>
+            <p class="reward-desc">扫码打赏，感谢支持</p>
+        </div>
+    </div>
+
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2018/Bugsfix/Mysqlerror2002/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          Mysql error 2002
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/Deploy/Apache%E9%85%8D%E7%BD%AEssl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Apache配置ssl
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/Project/%E9%9D%A2%E8%AF%95-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">面试-基础知识</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Bugsfix/%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E6%89%BE%E4%B8%8D%E5%88%B0%E9%97%AE%E9%A2%98%E8%B0%83%E8%AF%95/">无线网卡找不到问题调试</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Skill/Matplotlib%E5%9B%BE%E5%83%8F%E7%BB%93%E6%9E%84/">Matplotlib图像结构</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Deploy/%E7%AC%A6%E5%8F%B7%E6%9C%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E4%BE%8B%E4%B8%80%E5%88%99/">符号未定义实例一则</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Others/pyinstaller%E6%89%93%E5%8C%85%E7%9A%84exe%E8%A7%A3%E5%8C%85/">pyinstaller打包的exe解包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 11.43px;">Bug</a> <a href="/tags/C-C/" style="font-size: 18.57px;">C/C++</a> <a href="/tags/Dian/" style="font-size: 10px;">Dian</a> <a href="/tags/Git/" style="font-size: 11.43px;">Git</a> <a href="/tags/GitLab/" style="font-size: 10px;">GitLab</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IP/" style="font-size: 10px;">IP</a> <a href="/tags/K8s/" style="font-size: 10px;">K8s</a> <a href="/tags/Kernel/" style="font-size: 17.14px;">Kernel</a> <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Math/" style="font-size: 11.43px;">Math</a> <a href="/tags/MySQL/" style="font-size: 12.86px;">MySQL</a> <a href="/tags/NS3/" style="font-size: 10px;">NS3</a> <a href="/tags/Ping/" style="font-size: 11.43px;">Ping</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Python/" style="font-size: 11.43px;">Python</a> <a href="/tags/SMS/" style="font-size: 10px;">SMS</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/Shell/" style="font-size: 14.29px;">Shell</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Terraria/" style="font-size: 11.43px;">Terraria</a> <a href="/tags/Typora/" style="font-size: 10px;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 15.71px;">博客搭建</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 11.43px;">封装</a> <a href="/tags/%E5%B0%8F%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">小系统</a> <a href="/tags/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/%E6%97%B6%E5%85%89/" style="font-size: 11.43px;">时光</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 11.43px;">游戏</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 10px;">状态机</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a> <a href="/tags/%E7%A7%9F%E6%88%BF/" style="font-size: 10px;">租房</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 11.43px;">程序设计</a> <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" style="font-size: 10px;">算法导论</a> <a href="/tags/%E7%B3%BB%E7%BB%9F/" style="font-size: 11.43px;">系统</a> <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 10px;">经济学</a> <a href="/tags/%E7%BB%98%E5%9B%BE%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">绘图工具</a> <a href="/tags/%E7%BC%96%E8%AF%91/" style="font-size: 14.29px;">编译</a> <a href="/tags/%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">美化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%A7%A3%E7%A0%81/" style="font-size: 10px;">解码</a> <a href="/tags/%E8%AF%BE%E7%A8%8B/" style="font-size: 11.43px;">课程</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 14.29px;">软件</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 12.86px;">部署</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bugsfix/">Bugsfix</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dian%E5%9B%A2%E9%98%9F/">Dian团队</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/">工程管理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%B6%E5%85%89/">时光</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%98%E5%9B%BE/">绘图</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://dian.org.cn/">华中科技大学Dian团队</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://bbs.dian.org.cn/">Dian团队论坛</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://delta1037.notion.site">Notion知识共享板块</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 delta1037.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+    
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+    
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+    <script>
+      var gitalk = new Gitalk({
+        clientID: '79255b590bda0804dcc4',
+        clientSecret: '6405c9b64ff65c24179669cb3839f0bd7053c151',
+        repo: 'delta1037.github.io',
+        owner: 'delta1037',
+        admin: ['delta1037'],
+        id: md5(window.location.pathname),
+        distractionFreeMode: false,
+        language: 'zh-CN',
+        pagerDirection: 'last'
+      });
+      gitalk.render('comments');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
+
+
+
+  <script src='https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'default'});
+    }
+  </script>
+
+</body>
+</html>
