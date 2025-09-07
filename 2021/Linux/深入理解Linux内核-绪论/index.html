@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>深入理解Linux内核-绪论 | Delta1037</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="勤学如春起之苗，不见其增，日有所长；辍学如磨刀之石，不见其损，日有所亏">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Delta1037" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Delta1037</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术是纯净的</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Linux/深入理解Linux内核-绪论" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      深入理解Linux内核-绪论
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-19T16:00:00.000Z" itemprop="datePublished">2021年03月20日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2021/Linux/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Linux%E5%86%85%E6%A0%B8-%E7%BB%AA%E8%AE%BA/#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>深入理解Linux内核-绪论</p>
+<span id="more"></span>
+
+<h2 id="一、Linux与类Unix内核的比较"><a href="#一、Linux与类Unix内核的比较" class="headerlink" title="一、Linux与类Unix内核的比较"></a><strong>一、Linux与类Unix内核的比较</strong></h2><ul>
+<li>大部分Unix是单块结构的内核，不支持按需装载和卸载模块</li>
+<li>Unix内核被组织成一组内核线程；Linux以十分有限的方式使用内核线程周期地执行几个内核函数</li>
+<li>Unix内核地轻量级线程（LWP，lightweight process）基于内核线程；Linux把轻量级进程当作基本地执上下文</li>
+</ul>
+<h2 id="二、操作系统基本概念"><a href="#二、操作系统基本概念" class="headerlink" title="二、操作系统基本概念"></a><strong>二、操作系统基本概念</strong></h2><h3 id="2-1-多用户系统"><a href="#2-1-多用户系统" class="headerlink" title="2.1 多用户系统"></a><strong>2.1 多用户系统</strong></h3><p>多用户系统是一台能并发和独立地执行分别属于两个或者多个用户地若干应用程序地计算机</p>
+<p>多用户系统的特点：</p>
+<ul>
+<li>核实用户身份的认证机制</li>
+<li>防止有错误的用户程序妨碍其它应用程序再系统中运行的保护机制</li>
+<li>防止有恶意用户程序干涉或者窥视其它用户的活动的保护机制</li>
+<li>限制分配给每个用户的资源数的记账机制</li>
+</ul>
+<h3 id="2-2-用户和组"><a href="#2-2-用户和组" class="headerlink" title="2.2 用户和组"></a><strong>2.2 用户和组</strong></h3><p>在多用户系统中，每个用户都有私有空间。所有的用户用唯一的数字标识，这个数字叫用户标识符（User ID，UID）；为了能和其他用户选择性地共享资料，每个用户是一个或者多个用户组的成员，由唯一的用户组标识符标识（User Group ID）。每一个文件恰好与一个组相对应，例如可以设置文件的拥有者有文件的读写权限，同组的用户具有可读权限，从而实现了文件与其它用户的共享。</p>
+<h3 id="2-3-进程"><a href="#2-3-进程" class="headerlink" title="2.3 进程"></a><strong>2.3 进程</strong></h3><p>定义：程序执行的一个实例，或者一个运行程序的上下文</p>
+<h3 id="2-4-内核体系结构"><a href="#2-4-内核体系结构" class="headerlink" title="2.4 内核体系结构"></a><strong>2.4 内核体系结构</strong></h3><p>大多数Unix内核是单块结构：每一个内核层都集成到整个内核程序中，并代表当前进程在内核态下运行。微内核操作系统只需要内核有一个很小的函数集，运行在微内核之上的几个系统进程实现从前操作系统级实现的功能（内存分配、设备驱动程序和系统调用处理程序）</p>
+<h3 id="2-5-文件类型"><a href="#2-5-文件类型" class="headerlink" title="2.5 文件类型"></a><strong>2.5 文件类型</strong></h3><ul>
+<li>普通文件</li>
+<li>目录</li>
+<li>符号链接</li>
+<li>面向块的设备文件</li>
+<li>面向字符的设备文件</li>
+<li>管道和命名管道</li>
+<li>套接字</li>
+</ul>
+<h3 id="2-6-文件描述符与索引节点"><a href="#2-6-文件描述符与索引节点" class="headerlink" title="2.6 文件描述符与索引节点"></a><strong>2.6 文件描述符与索引节点</strong></h3><p>索引节点至少提供以下属性：</p>
+<ul>
+<li>文件类型</li>
+<li>与文件相关的硬链接个数</li>
+<li>以字节为单位的文件长度</li>
+<li>设备标识符</li>
+<li>在文件系统中标识文件的索引节点号</li>
+<li>文件拥有者的UID</li>
+<li>文件的用户组ID</li>
+<li>几个时间戳，表示索引节点状态改变的时间、最后访问时间和最后修改时间</li>
+<li>访问权限和文件模式</li>
+</ul>
+<h3 id="2-7-访问权限和文件模式"><a href="#2-7-访问权限和文件模式" class="headerlink" title="2.7 访问权限和文件模式"></a><strong>2.7 访问权限和文件模式</strong></h3><p>文件潜在的用户：</p>
+<ul>
+<li>文件的拥有者</li>
+<li>同组用户，不包括拥有者</li>
+<li>剩下的所有用户</li>
+</ul>
+<p>有三种类型的访问权限：读、写和执行，每组用户都有三种权限，所以文件权限的组合就用9种不同的二进制来标记。还有三种附加的标记，即suid（Set User ID），sgid（Set Group ID）和sticky定义文件的模式。</p>
+<p>当附加的标记应用到可执行文件时有如下含义：</p>
+<ul>
+<li>suid：进程执行一个文件时通常保持进程拥有者的UID。然而如果设置了可执行文件的suid标志位，进程就获得 了该文件拥有者的UID。</li>
+<li>sgid：进程执行一个文件时通常保持进程组的用户组ID。然而如果设置了可执行文件的sgid标志位，进程就获得 了该文件用户组的ID。</li>
+<li>sticky：设置了sticky的可执行文件相当于向内核发出了一个请求，当程序结束以后，依然将它保留在内存。</li>
+</ul>
+<h3 id="2-8-文件操作的系统调用"><a href="#2-8-文件操作的系统调用" class="headerlink" title="2.8 文件操作的系统调用"></a><strong>2.8 文件操作的系统调用</strong></h3><ul>
+<li>打开文件：open()</li>
+<li>访问打开的文件：lseek()&#x2F;read()&#x2F;write()</li>
+<li>关闭文件：close()</li>
+<li>更名文件：rename()</li>
+<li>删除文件：unlink()</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><strong>参考</strong></h2><p>【0】 《深入理解LINUX内核》</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Linux%E4%B8%8E%E7%B1%BBUnix%E5%86%85%E6%A0%B8%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">一、Linux与类Unix内核的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">二、操作系统基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%A4%9A%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F"><span class="toc-text">2.1 多用户系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="toc-text">2.2 用户和组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%BF%9B%E7%A8%8B"><span class="toc-text">2.3 进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E5%86%85%E6%A0%B8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-text">2.4 内核体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.5 文件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6%E4%B8%8E%E7%B4%A2%E5%BC%95%E8%8A%82%E7%82%B9"><span class="toc-text">2.6 文件描述符与索引节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E5%92%8C%E6%96%87%E4%BB%B6%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.7 访问权限和文件模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">2.8 文件操作的系统调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://www.delta1037.cn/2021/Linux/深入理解Linux内核-绪论/">https://www.delta1037.cn/2021/Linux/深入理解Linux内核-绪论/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+    <div class="article-reward">
+        <a id="reward-btn" href="javascript:;">打赏</a>
+        <div id="reward-content">
+            <h6 class="reward-tit">“感谢你的支持，我会继续努力！”</h6>
+            <div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/wechat.jpg">
+                    <img class="er-code" src="/css/images/wechat-pay.jpg">
+                </div>
+                <div class="reward-code">
+                    <img class="type-code" src="/css/images/alipay.jpg">
+                    <img class="er-code" src="/css/images/alipay-pay.jpg">
+                </div>
+            </div>
+            <p class="reward-desc">扫码打赏，感谢支持</p>
+        </div>
+    </div>
+
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/" rel="tag">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2021/C_C++/C-C++%E6%8F%92%E4%BB%B6%E5%BC%8F%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          C/C++插件式设计
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/Linux/%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E8%84%9A%E6%9C%AC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          系统信息收集脚本
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/Algorithm/%E9%9D%A2%E8%AF%95-%E7%AE%97%E6%B3%95Hot100/">面试-算法 Hot 100</a>
+          </li>
+        
+          <li>
+            <a href="/2024/Project/%E9%9D%A2%E8%AF%95-%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">面试-算法基础</a>
+          </li>
+        
+          <li>
+            <a href="/2024/Project/%E9%9D%A2%E8%AF%95-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">面试-基础知识</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Bugsfix/%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1%E6%89%BE%E4%B8%8D%E5%88%B0%E9%97%AE%E9%A2%98%E8%B0%83%E8%AF%95/">无线网卡找不到问题调试</a>
+          </li>
+        
+          <li>
+            <a href="/2023/Skill/Matplotlib%E5%9B%BE%E5%83%8F%E7%BB%93%E6%9E%84/">Matplotlib图像结构</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 11.43px;">Bug</a> <a href="/tags/C-C/" style="font-size: 18.57px;">C/C++</a> <a href="/tags/Dian/" style="font-size: 10px;">Dian</a> <a href="/tags/Git/" style="font-size: 11.43px;">Git</a> <a href="/tags/GitLab/" style="font-size: 10px;">GitLab</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IP/" style="font-size: 10px;">IP</a> <a href="/tags/K8s/" style="font-size: 10px;">K8s</a> <a href="/tags/Kernel/" style="font-size: 17.14px;">Kernel</a> <a href="/tags/Latex/" style="font-size: 10px;">Latex</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Math/" style="font-size: 11.43px;">Math</a> <a href="/tags/MySQL/" style="font-size: 12.86px;">MySQL</a> <a href="/tags/NS3/" style="font-size: 10px;">NS3</a> <a href="/tags/Ping/" style="font-size: 11.43px;">Ping</a> <a href="/tags/PostgreSQL/" style="font-size: 10px;">PostgreSQL</a> <a href="/tags/Python/" style="font-size: 12.86px;">Python</a> <a href="/tags/SMS/" style="font-size: 10px;">SMS</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/Shell/" style="font-size: 14.29px;">Shell</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/Terraria/" style="font-size: 11.43px;">Terraria</a> <a href="/tags/Typora/" style="font-size: 10px;">Typora</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 15.71px;">博客搭建</a> <a href="/tags/%E5%B0%81%E8%A3%85/" style="font-size: 11.43px;">封装</a> <a href="/tags/%E5%B0%8F%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">小系统</a> <a href="/tags/%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91/" style="font-size: 10px;">敏捷开发</a> <a href="/tags/%E6%97%B6%E5%85%89/" style="font-size: 11.43px;">时光</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 11.43px;">游戏</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 10px;">状态机</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 10px;">生活</a> <a href="/tags/%E7%A7%9F%E6%88%BF/" style="font-size: 10px;">租房</a> <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" style="font-size: 11.43px;">程序设计</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 11.43px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" style="font-size: 10px;">算法导论</a> <a href="/tags/%E7%B3%BB%E7%BB%9F/" style="font-size: 11.43px;">系统</a> <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 10px;">经济学</a> <a href="/tags/%E7%BB%98%E5%9B%BE%E5%B7%A5%E5%85%B7/" style="font-size: 10px;">绘图工具</a> <a href="/tags/%E7%BC%96%E8%AF%91/" style="font-size: 14.29px;">编译</a> <a href="/tags/%E7%BE%8E%E5%8C%96/" style="font-size: 10px;">美化</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 10px;">考研</a> <a href="/tags/%E8%A7%A3%E7%A0%81/" style="font-size: 10px;">解码</a> <a href="/tags/%E8%AF%BE%E7%A8%8B/" style="font-size: 11.43px;">课程</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 14.29px;">软件</a> <a href="/tags/%E9%83%A8%E7%BD%B2/" style="font-size: 12.86px;">部署</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Bugsfix/">Bugsfix</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Dian%E5%9B%A2%E9%98%9F/">Dian团队</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/">工程管理</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%B6%E5%85%89/">时光</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BB%98%E5%9B%BE/">绘图</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BE%E7%A8%8B/">课程</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%83%A8%E7%BD%B2/">部署</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017年</a><span class="archive-list-count">14</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://dian.org.cn/">华中科技大学Dian团队</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://bbs.dian.org.cn/">Dian团队论坛</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://delta1037.notion.site">Notion知识共享板块</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2025 delta1037.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+    
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+    
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+    <script>
+      var gitalk = new Gitalk({
+        clientID: '79255b590bda0804dcc4',
+        clientSecret: '6405c9b64ff65c24179669cb3839f0bd7053c151',
+        repo: 'delta1037.github.io',
+        owner: 'delta1037',
+        admin: ['delta1037'],
+        id: md5(window.location.pathname),
+        distractionFreeMode: false,
+        language: 'zh-CN',
+        pagerDirection: 'last'
+      });
+      gitalk.render('comments');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+  <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async type="text/javascript"></script>
+
+
+
+  <script src='https://unpkg.com/mermaid@9.3.0/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'default'});
+    }
+  </script>
+
+</body>
+</html>
