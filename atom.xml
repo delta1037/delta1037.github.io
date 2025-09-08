@@ -196,6 +196,27 @@
   </entry>
   
   <entry>
+    <title>Git commit信息规范</title>
+    <link href="https://www.delta1037.cn/2023/Project/Gitcommit%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/"/>
+    <id>https://www.delta1037.cn/2023/Project/Gitcommit%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/</id>
+    <published>2023-02-15T16:00:00.000Z</published>
+    <updated>2025-09-08T14:20:39.707Z</updated>
+    
+    <content type="html"><![CDATA[<p>Git commit信息格式规范</p><span id="more"></span><p><strong>commit信息格式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">type</span>&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># type ：commit类型</span></span><br><span class="line"><span class="comment"># scope ： 影响范围</span></span><br><span class="line"><span class="comment"># subject ： 具体描述</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># eg. : fix(DAO): fixed invalid user table indexes.</span></span><br></pre></td></tr></table></figure><p><strong>type：</strong>type指明git commit的类别，应该使用以下类型，也可根据团队自行增减</p><ul><li>『feat』: 新增功能</li><li>『fix』: 修复 bug</li><li>『docs』: 仅仅修改了文档，比如 README, CHANGELOG等等</li><li>『test』: 增加&#x2F;修改测试用例，包括单元测试、集成测试等</li><li>『style』: 修改了空行、缩进格式、引用包排序等等（不改变代码逻辑）</li><li>『perf』: 优化相关内容，比如提升性能、体验、算法等</li><li>『refactor』: 代码重构，「没有新功能或者bug修复」</li><li>『chore』: 改变构建流程、或者增加依赖库、工具等</li><li>『revert』: 回滚到上一个版本</li><li>『merge』: 代码合并</li></ul><p><strong>scope（可选）：</strong>scope用于说明 commit 影响的范围，根据不同项目有不同层次描述。若没有特殊规定，也可以描述影响的哪些功能等。</p><p><strong>subject：</strong>subject是commit目的的简短描述，不超过50&#x2F;80个字符，一般git提交的时候会有颜色提示。</p><ul><li>若英文用不惯，那么推荐使用中文</li><li>若是开源代码，一律推荐统一英文，英文不行可以翻译软件用起来</li><li>若是开源代码，可以再附加对应的issue地址</li><li>结尾不加标点符号</li></ul><p><strong>参考：</strong></p><p><a href="https://zhuanlan.zhihu.com/p/400870942">BOOKMARK</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;Git commit信息格式规范&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工程管理" scheme="https://www.delta1037.cn/categories/%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+    
+    <category term="Git" scheme="https://www.delta1037.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>pyinstaller打包的exe解包</title>
     <link href="https://www.delta1037.cn/2023/Others/pyinstaller%E6%89%93%E5%8C%85%E7%9A%84exe%E8%A7%A3%E5%8C%85/"/>
     <id>https://www.delta1037.cn/2023/Others/pyinstaller%E6%89%93%E5%8C%85%E7%9A%84exe%E8%A7%A3%E5%8C%85/</id>
@@ -223,27 +244,6 @@
   </entry>
   
   <entry>
-    <title>Git commit信息规范</title>
-    <link href="https://www.delta1037.cn/2023/Project/Gitcommit%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/"/>
-    <id>https://www.delta1037.cn/2023/Project/Gitcommit%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/</id>
-    <published>2023-02-15T16:00:00.000Z</published>
-    <updated>2025-09-08T14:20:39.707Z</updated>
-    
-    <content type="html"><![CDATA[<p>Git commit信息格式规范</p><span id="more"></span><p><strong>commit信息格式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">type</span>&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># type ：commit类型</span></span><br><span class="line"><span class="comment"># scope ： 影响范围</span></span><br><span class="line"><span class="comment"># subject ： 具体描述</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># eg. : fix(DAO): fixed invalid user table indexes.</span></span><br></pre></td></tr></table></figure><p><strong>type：</strong>type指明git commit的类别，应该使用以下类型，也可根据团队自行增减</p><ul><li>『feat』: 新增功能</li><li>『fix』: 修复 bug</li><li>『docs』: 仅仅修改了文档，比如 README, CHANGELOG等等</li><li>『test』: 增加&#x2F;修改测试用例，包括单元测试、集成测试等</li><li>『style』: 修改了空行、缩进格式、引用包排序等等（不改变代码逻辑）</li><li>『perf』: 优化相关内容，比如提升性能、体验、算法等</li><li>『refactor』: 代码重构，「没有新功能或者bug修复」</li><li>『chore』: 改变构建流程、或者增加依赖库、工具等</li><li>『revert』: 回滚到上一个版本</li><li>『merge』: 代码合并</li></ul><p><strong>scope（可选）：</strong>scope用于说明 commit 影响的范围，根据不同项目有不同层次描述。若没有特殊规定，也可以描述影响的哪些功能等。</p><p><strong>subject：</strong>subject是commit目的的简短描述，不超过50&#x2F;80个字符，一般git提交的时候会有颜色提示。</p><ul><li>若英文用不惯，那么推荐使用中文</li><li>若是开源代码，一律推荐统一英文，英文不行可以翻译软件用起来</li><li>若是开源代码，可以再附加对应的issue地址</li><li>结尾不加标点符号</li></ul><p><strong>参考：</strong></p><p><a href="https://zhuanlan.zhihu.com/p/400870942">BOOKMARK</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;Git commit信息格式规范&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工程管理" scheme="https://www.delta1037.cn/categories/%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    
-    
-    <category term="Git" scheme="https://www.delta1037.cn/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Row size too large (&gt; 8126)</title>
     <link href="https://www.delta1037.cn/2023/Bugsfix/Rowsizetoolarge(-8126)/"/>
     <id>https://www.delta1037.cn/2023/Bugsfix/Rowsizetoolarge(-8126)/</id>
@@ -260,32 +260,9 @@
     <category term="Bugsfix" scheme="https://www.delta1037.cn/categories/Bugsfix/"/>
     
     
-    <category term="MySQL" scheme="https://www.delta1037.cn/tags/MySQL/"/>
-    
     <category term="Bug" scheme="https://www.delta1037.cn/tags/Bug/"/>
     
-  </entry>
-  
-  <entry>
-    <title>博客更新说明</title>
-    <link href="https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/"/>
-    <id>https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/</id>
-    <published>2023-02-06T16:00:00.000Z</published>
-    <updated>2025-09-08T14:20:38.533Z</updated>
-    
-    <content type="html"><![CDATA[<p>博客最近整合到了notion统一管理，并更新了hexo和主题版本，正在逐个完善并重新上传之前的博客内容</p><span id="more"></span><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/notion2hexo/Deploy_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E_notion%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86%E6%96%87%E7%AB%A0.png" alt="notion统一管理文章"></p><ul><li>文章搬运基本完成，删除了一些未完成的文章，之后再挨着整理一下格式即可</li><li>notion上的文章之后会拣比较好的搬运到这边来</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;博客最近整合到了notion统一管理，并更新了hexo和主题版本，正在逐个完善并重新上传之前的博客内容&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="博客搭建" scheme="https://www.delta1037.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    
-    <category term="博客搭建" scheme="https://www.delta1037.cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
-    
-    <category term="部署" scheme="https://www.delta1037.cn/tags/%E9%83%A8%E7%BD%B2/"/>
+    <category term="MySQL" scheme="https://www.delta1037.cn/tags/MySQL/"/>
     
   </entry>
   
@@ -301,6 +278,29 @@
     
     <summary type="html">&lt;p&gt;趁着博客整合，修理一下mermaid不支持的问题。&lt;/p&gt;
 &lt;p&gt;从网上找到了一些教程，但是配置过程中也发现了一些问题，所以在这里记录一下。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="博客搭建" scheme="https://www.delta1037.cn/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="博客搭建" scheme="https://www.delta1037.cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
+    
+    <category term="部署" scheme="https://www.delta1037.cn/tags/%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>博客更新说明</title>
+    <link href="https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/"/>
+    <id>https://www.delta1037.cn/2023/Deploy/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/</id>
+    <published>2023-02-06T16:00:00.000Z</published>
+    <updated>2025-09-08T14:20:38.533Z</updated>
+    
+    <content type="html"><![CDATA[<p>博客最近整合到了notion统一管理，并更新了hexo和主题版本，正在逐个完善并重新上传之前的博客内容</p><span id="more"></span><p><img src="https://delta1037.oss-cn-beijing.aliyuncs.com/notion2hexo/Deploy_%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E_notion%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86%E6%96%87%E7%AB%A0.png" alt="notion统一管理文章"></p><ul><li>文章搬运基本完成，删除了一些未完成的文章，之后再挨着整理一下格式即可</li><li>notion上的文章之后会拣比较好的搬运到这边来</li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;博客最近整合到了notion统一管理，并更新了hexo和主题版本，正在逐个完善并重新上传之前的博客内容&lt;/p&gt;</summary>
     
     
     
